@@ -1,0 +1,36 @@
+# Prime Outdoor Experts — robots.txt
+# https://primeoutdoorexperts.com/robots.txt
+
+User-agent: *
+Allow: /
+Disallow: /cart/
+Disallow: /checkout/
+Disallow: /wp-admin/
+Disallow: /wp-login.php
+Disallow: /?s=
+Disallow: /*?*utm_
+Disallow: /*?*ref=
+
+Sitemap: https://primeoutdoorexperts.com/sitemap.xml
+
+# Allow AI search bots for citation potential (Google AI Overviews, ChatGPT, Perplexity)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Bytespider
+Allow: /

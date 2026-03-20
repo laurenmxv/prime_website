@@ -1,0 +1,1626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prime Outdoor Experts — Website Rebuild Plan</title>
+<style>
+  :root {
+    --black: #0A0A0A;
+    --black-soft: #141414;
+    --black-card: #1A1A1A;
+    --black-border: #2A2A2A;
+    --chartreuse: #C8F000;
+    --chartreuse-dark: #A0C200;
+    --chartreuse-muted: #D4F54D;
+    --chartreuse-bg: #F2FFB3;
+    --white: #FFFFFF;
+    --grey-100: #F5F5F5;
+    --grey-200: #E8E8E8;
+    --grey-400: #9A9A9A;
+    --grey-600: #5A5A5A;
+    --red: #FF4444;
+    --red-bg: #FFF0F0;
+    --amber: #FFB300;
+    --amber-bg: #FFFBF0;
+    --green: #00C853;
+    --green-bg: #F0FFF4;
+    --blue: #2979FF;
+    --blue-bg: #EEF4FF;
+    --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    --mono: 'Cascadia Code', 'Fira Code', 'Courier New', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font);
+    background: var(--grey-100);
+    color: var(--black);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* COVER */
+  .cover {
+    background: var(--black);
+    color: var(--white);
+    padding: 80px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(200,240,0,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cover-tag {
+    background: var(--chartreuse);
+    color: var(--black);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    display: inline-block;
+    margin-bottom: 24px;
+    border-radius: 2px;
+  }
+  .cover h1 {
+    font-size: 42px;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+  }
+  .cover h1 span { color: var(--chartreuse); }
+  .cover-sub {
+    font-size: 18px;
+    color: var(--grey-400);
+    margin-bottom: 40px;
+    max-width: 600px;
+  }
+  .cover-meta {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .cover-meta-item { }
+  .cover-meta-item .label { font-size: 11px; color: var(--grey-400); text-transform: uppercase; letter-spacing: 1px; }
+  .cover-meta-item .value { font-size: 15px; color: var(--white); font-weight: 600; margin-top: 2px; }
+
+  /* TOC */
+  .toc {
+    background: var(--white);
+    border-left: 4px solid var(--chartreuse);
+    padding: 32px 40px;
+    margin: 32px;
+    border-radius: 0 8px 8px 0;
+  }
+  .toc h2 { font-size: 16px; font-weight: 700; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; color: var(--black); }
+  .toc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 40px; }
+  .toc a { color: var(--grey-600); text-decoration: none; font-size: 13px; padding: 3px 0; display: block; }
+  .toc a:hover { color: var(--black); }
+  .toc .num { color: var(--chartreuse-dark); font-weight: 700; margin-right: 6px; }
+
+  /* MAIN LAYOUT */
+  .wrapper { max-width: 1100px; margin: 0 auto; padding: 0 32px 80px; }
+
+  /* SECTION */
+  .section {
+    margin-top: 48px;
+  }
+  .section-header {
+    background: var(--black);
+    color: var(--white);
+    padding: 16px 24px;
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .section-num {
+    background: var(--chartreuse);
+    color: var(--black);
+    font-size: 12px;
+    font-weight: 800;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .section-header h2 { font-size: 18px; font-weight: 700; }
+  .section-body {
+    background: var(--white);
+    border: 1px solid var(--grey-200);
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    padding: 28px;
+  }
+
+  /* SUBSECTIONS */
+  h3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--black);
+    margin: 24px 0 10px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--chartreuse);
+    display: inline-block;
+  }
+  h3:first-child { margin-top: 0; }
+  h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--grey-600);
+    margin: 16px 0 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  p { margin-bottom: 10px; font-size: 13.5px; color: #333; }
+  p:last-child { margin-bottom: 0; }
+
+  /* CARDS */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 16px 0; }
+  .card {
+    background: var(--grey-100);
+    border: 1px solid var(--grey-200);
+    border-radius: 8px;
+    padding: 16px;
+  }
+  .card.accent { border-left: 3px solid var(--chartreuse); }
+  .card.red { border-left: 3px solid var(--red); background: var(--red-bg); }
+  .card.amber { border-left: 3px solid var(--amber); background: var(--amber-bg); }
+  .card.green { border-left: 3px solid var(--green); background: var(--green-bg); }
+  .card.blue { border-left: 3px solid var(--blue); background: var(--blue-bg); }
+  .card-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--grey-400); margin-bottom: 6px; }
+  .card h4 { font-size: 13px; margin: 0 0 6px; padding: 0; border: none; text-transform: none; letter-spacing: 0; color: var(--black); }
+  .card p { font-size: 12.5px; margin: 0; }
+
+  /* TABLES */
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  th {
+    background: var(--black);
+    color: var(--white);
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+  td { padding: 9px 12px; border-bottom: 1px solid var(--grey-200); vertical-align: top; }
+  tr:nth-child(even) td { background: #FAFAFA; }
+  tr:hover td { background: #F0FFB0; }
+  .tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .tag-red { background: #FFE0E0; color: #C62828; }
+  .tag-amber { background: #FFF3CD; color: #856404; }
+  .tag-green { background: #D4EDDA; color: #155724; }
+  .tag-blue { background: #CCE5FF; color: #004085; }
+  .tag-grey { background: #E8E8E8; color: #555; }
+  .tag-lime { background: var(--chartreuse-bg); color: #3A5500; }
+
+  /* CODE BLOCKS */
+  pre {
+    background: var(--black);
+    color: #C8F000;
+    padding: 20px;
+    border-radius: 8px;
+    font-family: var(--mono);
+    font-size: 12px;
+    overflow-x: auto;
+    margin: 16px 0;
+    line-height: 1.7;
+  }
+  code {
+    background: #F0F0F0;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: #C62828;
+  }
+  pre code { background: none; color: inherit; padding: 0; }
+
+  /* CALLOUTS */
+  .callout {
+    padding: 14px 18px;
+    border-radius: 6px;
+    margin: 16px 0;
+    font-size: 13px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .callout-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .callout.warn { background: var(--amber-bg); border-left: 4px solid var(--amber); }
+  .callout.info { background: var(--blue-bg); border-left: 4px solid var(--blue); }
+  .callout.success { background: var(--green-bg); border-left: 4px solid var(--green); }
+  .callout.critical { background: var(--red-bg); border-left: 4px solid var(--red); }
+  .callout.lime { background: var(--chartreuse-bg); border-left: 4px solid var(--chartreuse); }
+
+  /* TREE */
+  .tree {
+    background: var(--black);
+    color: #E0E0E0;
+    padding: 20px 24px;
+    border-radius: 8px;
+    font-family: var(--mono);
+    font-size: 12px;
+    line-height: 2;
+    margin: 16px 0;
+    overflow-x: auto;
+  }
+  .tree .hl { color: var(--chartreuse); font-weight: 700; }
+  .tree .dim { color: #666; }
+  .tree .new { color: #00E676; }
+
+  /* PHASE TIMELINE */
+  .timeline { margin: 20px 0; }
+  .phase {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 12px;
+    align-items: flex-start;
+  }
+  .phase-num {
+    background: var(--black);
+    color: var(--chartreuse);
+    font-weight: 800;
+    font-size: 12px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .phase-content { flex: 1; }
+  .phase-title { font-weight: 700; font-size: 14px; }
+  .phase-sub { font-size: 12.5px; color: var(--grey-600); margin-top: 4px; }
+
+  /* COLOR SWATCHES */
+  .swatches { display: flex; gap: 12px; flex-wrap: wrap; margin: 12px 0; }
+  .swatch { border-radius: 8px; padding: 16px; min-width: 120px; }
+  .swatch .swatch-name { font-size: 11px; font-weight: 700; margin-bottom: 2px; }
+  .swatch .swatch-hex { font-family: var(--mono); font-size: 11px; opacity: 0.7; }
+
+  /* PAGE SPEC CARDS */
+  .page-spec {
+    border: 1px solid var(--grey-200);
+    border-radius: 8px;
+    margin: 16px 0;
+    overflow: hidden;
+  }
+  .page-spec-header {
+    background: var(--black-card);
+    color: var(--white);
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .page-spec-header .url {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--chartreuse);
+  }
+  .page-spec-header .ptype {
+    font-size: 11px;
+    color: var(--grey-400);
+    margin-left: auto;
+  }
+  .page-spec-body {
+    padding: 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .spec-field label { font-size: 10px; font-weight: 700; color: var(--grey-400); text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 3px; }
+  .spec-field p { font-size: 12.5px; color: var(--black); margin: 0; }
+  .spec-field.full { grid-column: 1 / -1; }
+
+  /* PILL LISTS */
+  .pill-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; }
+  .pill {
+    background: var(--grey-100);
+    border: 1px solid var(--grey-200);
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    color: var(--grey-600);
+  }
+  .pill.active { background: var(--chartreuse-bg); border-color: var(--chartreuse); color: #3A5500; font-weight: 600; }
+
+  /* SCHEMA BLOCKS */
+  .schema-block { margin: 16px 0; }
+  .schema-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--grey-400); margin-bottom: 6px; }
+
+  /* DIVIDER */
+  .divider { border: none; border-top: 1px solid var(--grey-200); margin: 24px 0; }
+
+  /* ANCHOR TARGETS */
+  [id] { scroll-margin-top: 20px; }
+
+  /* PRINT */
+  @media print {
+    .cover { background: #0A0A0A !important; -webkit-print-color-adjust: exact; }
+    .section-header { background: #0A0A0A !important; -webkit-print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ COVER ═══════════════════════════════════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-tag">Confidential · Strategy Document</div>
+  <h1>Prime Outdoor Experts<br><span>Website Rebuild Plan</span></h1>
+  <p class="cover-sub">A full-stack SEO, architecture, content, and conversion strategy for the new primeoutdoorexperts.com — built to dominate Orlando commercial and residential landscaping search.</p>
+  <div class="cover-meta">
+    <div class="cover-meta-item"><div class="label">Prepared</div><div class="value">March 2026</div></div>
+    <div class="cover-meta-item"><div class="label">Business</div><div class="value">Prime Outdoor Experts LLC</div></div>
+    <div class="cover-meta-item"><div class="label">Market</div><div class="value">Orlando, FL · Central Florida</div></div>
+    <div class="cover-meta-item"><div class="label">Focus Split</div><div class="value">70% Commercial · 30% Residential</div></div>
+    <div class="cover-meta-item"><div class="label">Total Pages Planned</div><div class="value">90+ (incl. pSEO)</div></div>
+    <div class="cover-meta-item"><div class="label">Build Phases</div><div class="value">4 phases · 90 days</div></div>
+  </div>
+</div>
+
+<!-- ═══ TOC ══════════════════════════════════════════════════════════════════ -->
+<div class="toc">
+  <h2>Table of Contents</h2>
+  <div class="toc-grid">
+    <div>
+      <a href="#s1"><span class="num">01</span>Executive Summary & Goals</a>
+      <a href="#s2"><span class="num">02</span>Brand Design System</a>
+      <a href="#s3"><span class="num">03</span>Full Site Architecture</a>
+      <a href="#s4"><span class="num">04</span>Navigation Design Spec</a>
+      <a href="#s5"><span class="num">05</span>Technical SEO Foundation</a>
+      <a href="#s6"><span class="num">06</span>Schema Markup Plan</a>
+      <a href="#s7"><span class="num">07</span>AI SEO Requirements</a>
+      <a href="#s8"><span class="num">08</span>Page Specs — Core Pages</a>
+    </div>
+    <div>
+      <a href="#s9"><span class="num">09</span>Page Specs — Commercial pSEO</a>
+      <a href="#s10"><span class="num">10</span>Content Strategy & Blog</a>
+      <a href="#s11"><span class="num">11</span>Conversion Optimization (CRO)</a>
+      <a href="#s12"><span class="num">12</span>Lead Generation & Forms</a>
+      <a href="#s13"><span class="num">13</span>Analytics & Tracking</a>
+      <a href="#s14"><span class="num">14</span>90-Day Implementation Roadmap</a>
+      <a href="#s15"><span class="num">15</span>Developer Technical Brief</a>
+    </div>
+  </div>
+</div>
+
+<div class="wrapper">
+
+<!-- ═══ S1: EXECUTIVE SUMMARY ════════════════════════════════════════════════ -->
+<div class="section" id="s1">
+  <div class="section-header">
+    <div class="section-num">1</div>
+    <h2>Executive Summary &amp; Goals</h2>
+  </div>
+  <div class="section-body">
+
+    <h3>Current Site — What's Broken</h3>
+    <p>The current primeoutdoorexperts.com is a 6-page brochure site. It has no blog, no location pages, no individual service pages, no schema markup, and no property-type commercial pages. The competitor research across 3 keyword sets reveals that the site is invisible for most high-value commercial landscaping searches in the Orlando market.</p>
+
+    <div class="card-grid">
+      <div class="card red">
+        <div class="card-label">Critical Gap</div>
+        <h4>No Individual Service Pages</h4>
+        <p>All 12 services compressed into one page. Zero keyword targeting per service.</p>
+      </div>
+      <div class="card red">
+        <div class="card-label">Critical Gap</div>
+        <h4>No Location Pages</h4>
+        <p>5 counties served, zero suburb-specific pages. Losing all "[service] [city]" searches.</p>
+      </div>
+      <div class="card red">
+        <div class="card-label">Critical Gap</div>
+        <h4>No Blog / Content</h4>
+        <p>Blog 404s. Zero authority-building content. No topical clusters.</p>
+      </div>
+      <div class="card red">
+        <div class="card-label">Critical Gap</div>
+        <h4>No Commercial pSEO</h4>
+        <p>No property-type pages (HOA, office park, retail, medical). Zero competitors have built these — first-mover window is open NOW.</p>
+      </div>
+      <div class="card amber">
+        <div class="card-label">SEO Issue</div>
+        <h4>No Meta Descriptions</h4>
+        <p>Google writing its own snippets. CTR significantly below potential.</p>
+      </div>
+      <div class="card amber">
+        <div class="card-label">SEO Issue</div>
+        <h4>No Schema Markup</h4>
+        <p>No rich snippets, no FAQ schema, no LocalBusiness schema for map pack authority.</p>
+      </div>
+      <div class="card amber">
+        <div class="card-label">CRO Issue</div>
+        <h4>Weak Social Proof</h4>
+        <p>No star ratings, no review counts, no project photos with before/after context.</p>
+      </div>
+      <div class="card amber">
+        <div class="card-label">CRO Issue</div>
+        <h4>Generic Hero Copy</h4>
+        <p>"Orlando's Trusted Outdoor Experts" is indistinguishable from 15 competitors.</p>
+      </div>
+    </div>
+
+    <h3>The Opportunity</h3>
+    <div class="callout lime">
+      <div class="callout-icon">🎯</div>
+      <div><strong>Zero competitors in the Orlando commercial landscaping market have built property-type × location combination pages.</strong> Prime OE can be the first company with a page for "HOA landscaping Winter Park FL," "office park landscaping Lake Nona," and 30+ other high-intent combos. These pages will rank within 60–90 days with near-zero competition.</div>
+    </div>
+
+    <h3>Goals for the New Site</h3>
+    <div class="tbl-wrap">
+    <table>
+      <tr><th>Goal</th><th>Metric</th><th>12-Month Target</th></tr>
+      <tr><td>Rank for commercial landscaping terms</td><td>Page 1 rankings</td><td>20+ commercial keywords on page 1</td></tr>
+      <tr><td>Local map pack dominance</td><td>GBP impressions + calls</td><td>3× current GBP call volume</td></tr>
+      <tr><td>Organic lead generation</td><td>Form submissions / calls from organic</td><td>15+ qualified leads/month from organic</td></tr>
+      <tr><td>Commercial client acquisition</td><td>% of leads that are commercial</td><td>70%+ of new leads are commercial properties</td></tr>
+      <tr><td>Domain authority growth</td><td>Ahrefs/Moz DA</td><td>DA 25+ (from current ~15–22)</td></tr>
+      <tr><td>AI search visibility</td><td>Citations in ChatGPT/Perplexity/AI Overviews</td><td>Cited for 5+ Orlando landscaping queries</td></tr>
+    </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ S2: BRAND DESIGN SYSTEM ══════════════════════════════════════════════ -->
+<div class="section" id="s2">
+  <div class="section-header">
+    <div class="section-num">2</div>
+    <h2>Brand Design System</h2>
+  </div>
+  <div class="section-body">
+
+    <h3>Color System</h3>
+    <p>Retain the black + chartreuse identity. Expand it into a full design system with semantic roles for each color.</p>
+
+    <div class="swatches">
+      <div class="swatch" style="background:#0A0A0A; color:#fff;">
+        <div class="swatch-name">Near-Black</div>
+        <div class="swatch-hex">#0A0A0A</div>
+        <div style="font-size:11px;margin-top:4px;opacity:0.6;">Primary BG · Headers · Text</div>
+      </div>
+      <div class="swatch" style="background:#141414; color:#fff;">
+        <div class="swatch-name">Card Black</div>
+        <div class="swatch-hex">#141414</div>
+        <div style="font-size:11px;margin-top:4px;opacity:0.6;">Cards · Sections · Panels</div>
+      </div>
+      <div class="swatch" style="background:#C8F000; color:#0A0A0A;">
+        <div class="swatch-name">Chartreuse</div>
+        <div class="swatch-hex">#C8F000</div>
+        <div style="font-size:11px;margin-top:4px;opacity:0.7;">CTAs · Accents · Highlights</div>
+      </div>
+      <div class="swatch" style="background:#A0C200; color:#fff;">
+        <div class="swatch-name">Chartreuse Dark</div>
+        <div class="swatch-hex">#A0C200</div>
+        <div style="font-size:11px;margin-top:4px;opacity:0.8;">Hover States · Active Links</div>
+      </div>
+      <div class="swatch" style="background:#F0FFB3; color:#0A0A0A;">
+        <div class="swatch-name">Chartreuse Tint</div>
+        <div class="swatch-hex">#F0FFB3</div>
+        <div style="font-size:11px;margin-top:4px;opacity:0.7;">Badges · Tags · Light BG</div>
+      </div>
+      <div class="swatch" style="background:#FFFFFF; color:#0A0A0A; border:1px solid #E8E8E8;">
+        <div class="swatch-name">White</div>
+        <div class="swatch-hex">#FFFFFF</div>
+        <div style="font-size:11px;margin-top:4px;opacity:0.6;">Content BG · Cards on Dark</div>
+      </div>
+      <div class="swatch" style="background:#F5F5F5; color:#0A0A0A;">
+        <div class="swatch-name">Off-White</div>
+        <div class="swatch-hex">#F5F5F5</div>
+        <div style="font-size:11px;margin-top:4px;opacity:0.6;">Section Alt BG · Tables</div>
+      </div>
+      <div class="swatch" style="background:#9A9A9A; color:#fff;">
+        <div class="swatch-name">Grey</div>
+        <div class="swatch-hex">#9A9A9A</div>
+        <div style="font-size:11px;margin-top:4px;opacity:0.8;">Body text · Captions</div>
+      </div>
+    </div>
+
+    <h3>Typography</h3>
+    <div class="tbl-wrap"><table>
+      <tr><th>Role</th><th>Font</th><th>Weight</th><th>Size (desktop)</th><th>Usage</th></tr>
+      <tr><td>Display / Hero</td><td>Inter or Plus Jakarta Sans</td><td>800 ExtraBold</td><td>56–72px</td><td>Hero headlines, section titles on dark BG</td></tr>
+      <tr><td>Section Headline</td><td>Inter</td><td>700 Bold</td><td>32–42px</td><td>H2 section headers</td></tr>
+      <tr><td>Sub-headline</td><td>Inter</td><td>600 SemiBold</td><td>22–28px</td><td>H3 callouts, card headlines</td></tr>
+      <tr><td>Body</td><td>Inter</td><td>400 Regular</td><td>16–18px</td><td>Paragraphs, descriptions</td></tr>
+      <tr><td>Small / Meta</td><td>Inter</td><td>400</td><td>13–14px</td><td>Tags, captions, labels</td></tr>
+      <tr><td>CTA Buttons</td><td>Inter</td><td>700 Bold</td><td>15–16px</td><td>All button text — ALL CAPS optional</td></tr>
+      <tr><td>Navigation</td><td>Inter</td><td>500 Medium</td><td>14–15px</td><td>Nav items</td></tr>
+      <tr><td>Code / URLs</td><td>JetBrains Mono</td><td>400</td><td>13px</td><td>Any code or URL display</td></tr>
+    </table></div>
+
+    <h3>Component Principles</h3>
+    <div class="card-grid">
+      <div class="card accent">
+        <h4>Dark Sections</h4>
+        <p>Hero, CTA bands, and feature highlights use #0A0A0A background with chartreuse accents. Creates premium, modern feel.</p>
+      </div>
+      <div class="card accent">
+        <h4>Light Sections</h4>
+        <p>#FFFFFF or #F5F5F5 backgrounds for service lists, testimonials, FAQs. High readability for long-form content.</p>
+      </div>
+      <div class="card accent">
+        <h4>Chartreuse CTAs Only</h4>
+        <p>Reserve #C8F000 exclusively for primary CTAs and key accent elements. Dilution kills conversion rate.</p>
+      </div>
+      <div class="card accent">
+        <h4>Photography Style</h4>
+        <p>High-contrast landscape photography. Avoid stock. Real job photos with before/after pairs. Drone shots for commercial properties.</p>
+      </div>
+      <div class="card accent">
+        <h4>Icon Style</h4>
+        <p>Outlined, single-weight icons (Lucide or Phosphor). Never filled icon sets alongside outlined — pick one.</p>
+      </div>
+      <div class="card accent">
+        <h4>Motion / Animation</h4>
+        <p>Subtle scroll-triggered reveals. No auto-play video in hero. CLS score must stay under 0.1 — no layout-shifting animations.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ S3: SITE ARCHITECTURE ════════════════════════════════════════════════ -->
+<div class="section" id="s3">
+  <div class="section-header">
+    <div class="section-num">3</div>
+    <h2>Full Site Architecture</h2>
+  </div>
+  <div class="section-body">
+
+    <div class="callout info">
+      <div class="callout-icon">ℹ️</div>
+      <div>URLs marked <span style="color:#00C853;font-weight:700;">▶ NEW</span> are net-new pages. URLs marked <span style="color:#FF9800;font-weight:700;">↻ REBUILD</span> exist but need complete rewrites. All URLs marked <span style="color:#F44336;font-weight:700;">✕ REDIRECT</span> should 301-redirect to their replacement.</div>
+    </div>
+
+    <div class="tree">
+<span class="hl">primeoutdoorexperts.com</span>
+<span class="dim">│</span>
+├── <span class="hl">/</span>  <span class="dim">↻ REBUILD — Homepage</span>
+├── <span class="new">▶ /about/</span>  <span class="dim">Company story, team, certifications, service area map</span>
+├── <span class="new">▶ /reviews/</span>  <span class="dim">Aggregated Google/Yelp reviews with schema markup</span>
+├── <span class="hl">/contact/</span>  <span class="dim">↻ REBUILD — Multi-step quote form + phone + map</span>
+│
+├── <span class="hl">SERVICES  (/services/)</span>  <span class="dim">↻ REBUILD — Hub page for all services</span>
+│   ├── <span class="new">▶ /services/lawn-care/</span>  <span class="dim">Mowing, edging, trimming — primary keyword page</span>
+│   ├── <span class="new">▶ /services/landscape-design-installation/</span>
+│   ├── <span class="new">▶ /services/irrigation-systems/</span>
+│   ├── <span class="new">▶ /services/tree-shrub-care/</span>
+│   ├── <span class="new">▶ /services/landscape-enhancements/</span>
+│   ├── <span class="new">▶ /services/seasonal-cleanup/</span>
+│   ├── <span class="new">▶ /services/sustainable-landscaping/</span>
+│   └── <span class="new">▶ /services/hoa-maintenance-programs/</span>
+│
+├── <span class="hl">COMMERCIAL  (/commercial-landscaping/)</span>  <span class="dim">↻ REBUILD — Commercial hub</span>
+│   ├── <span class="new">▶ /commercial-landscaping/hoa-communities/</span>
+│   ├── <span class="new">▶ /commercial-landscaping/office-parks/</span>
+│   ├── <span class="new">▶ /commercial-landscaping/retail-centers/</span>
+│   ├── <span class="new">▶ /commercial-landscaping/apartment-complexes/</span>
+│   ├── <span class="new">▶ /commercial-landscaping/medical-campuses/</span>
+│   ├── <span class="new">▶ /commercial-landscaping/industrial-facilities/</span>
+│   └── <span class="new">▶ /commercial-landscaping/hospitality-hotels/</span>
+│
+├── <span class="hl">RESIDENTIAL  (/residential/)</span>  <span class="dim">↻ REBUILD</span>
+│
+├── <span class="hl">LOCATIONS  (/locations/)</span>  <span class="new">▶ NEW — Location hub page</span>
+│   ├── <span class="new">▶ /locations/winter-park-fl/</span>
+│   ├── <span class="new">▶ /locations/lake-nona-fl/</span>
+│   ├── <span class="new">▶ /locations/kissimmee-fl/</span>
+│   ├── <span class="new">▶ /locations/windermere-fl/</span>
+│   ├── <span class="new">▶ /locations/altamonte-springs-fl/</span>
+│   ├── <span class="new">▶ /locations/maitland-fl/</span>
+│   ├── <span class="new">▶ /locations/winter-garden-fl/</span>
+│   ├── <span class="new">▶ /locations/ocoee-fl/</span>
+│   ├── <span class="new">▶ /locations/apopka-fl/</span>
+│   ├── <span class="new">▶ /locations/lake-mary-fl/</span>
+│   ├── <span class="new">▶ /locations/sanford-fl/</span>
+│   ├── <span class="new">▶ /locations/celebration-fl/</span>
+│   └── <span class="new">▶ /locations/dr-phillips-fl/</span>
+│
+├── <span class="hl">COMBO PAGES  (pSEO — property type × location)</span>
+│   ├── <span class="new">▶ /commercial-landscaping/hoa/winter-park/</span>
+│   ├── <span class="new">▶ /commercial-landscaping/hoa/windermere/</span>
+│   ├── <span class="new">▶ /commercial-landscaping/hoa/lake-nona/</span>
+│   ├── <span class="new">▶ /commercial-landscaping/hoa/kissimmee/</span>
+│   ├── <span class="new">▶ /commercial-landscaping/hoa/celebration/</span>
+│   ├── <span class="new">▶ /commercial-landscaping/office-parks/lake-nona/</span>
+│   ├── <span class="new">▶ /commercial-landscaping/office-parks/maitland/</span>
+│   ├── <span class="new">▶ /commercial-landscaping/office-parks/altamonte-springs/</span>
+│   ├── <span class="new">▶ /commercial-landscaping/apartments/lake-nona/</span>
+│   ├── <span class="new">▶ /commercial-landscaping/apartments/kissimmee/</span>
+│   ├── <span class="new">▶ /commercial-landscaping/medical/lake-nona/</span>
+│   └── <span class="new">▶ /commercial-landscaping/retail/kissimmee/</span>
+│
+├── <span class="hl">RESOURCES  (/resources/)</span>  <span class="new">▶ NEW — Hub for blog + guides + tools</span>
+│   ├── <span class="new">▶ /blog/</span>  <span class="dim">Blog index</span>
+│   │   ├── <span class="new">▶ /blog/category/commercial-landscaping/</span>
+│   │   ├── <span class="new">▶ /blog/category/lawn-care-tips/</span>
+│   │   ├── <span class="new">▶ /blog/category/landscape-design/</span>
+│   │   ├── <span class="new">▶ /blog/category/florida-plants/</span>
+│   │   └── <span class="new">▶ /blog/category/hoa-property-management/</span>
+│   ├── <span class="new">▶ /resources/free-lawn-assessment/</span>  <span class="dim">Lead magnet landing page</span>
+│   └── <span class="new">▶ /resources/commercial-landscaping-guide/</span>  <span class="dim">Cornerstone content</span>
+│
+├── <span class="hl">/gallery/</span>  <span class="dim">↻ REBUILD — Project portfolio with filtering</span>
+│
+├── <span class="dim">LEGAL (footer only)</span>
+│   ├── <span class="new">▶ /privacy-policy/</span>
+│   └── <span class="new">▶ /terms-of-service/</span>
+│
+└── <span class="dim">REDIRECTS (301)</span>
+    ├── <span class="dim">/design-installation → /services/landscape-design-installation/</span>
+    └── <span class="dim">/testimonials → /reviews/</span>
+    </div>
+
+    <h3>Page Count Summary</h3>
+    <div class="tbl-wrap"><table>
+      <tr><th>Category</th><th>Pages</th><th>Status</th><th>SEO Priority</th></tr>
+      <tr><td>Core / Utility (Home, About, Contact, Reviews, Gallery)</td><td>5</td><td><span class="tag tag-amber">Rebuild</span></td><td>High</td></tr>
+      <tr><td>Individual Service Pages</td><td>8</td><td><span class="tag tag-red">New</span></td><td>High</td></tr>
+      <tr><td>Commercial Property-Type Pages</td><td>8</td><td><span class="tag tag-red">New</span></td><td>Very High</td></tr>
+      <tr><td>Residential Page</td><td>1</td><td><span class="tag tag-amber">Rebuild</span></td><td>Medium</td></tr>
+      <tr><td>Location Pages (city-specific)</td><td>13</td><td><span class="tag tag-red">New</span></td><td>High</td></tr>
+      <tr><td>Combo pSEO Pages (property type × location)</td><td>12</td><td><span class="tag tag-red">New</span></td><td>High (first-mover)</td></tr>
+      <tr><td>Blog Posts (Year 1 target)</td><td>30</td><td><span class="tag tag-red">New</span></td><td>Medium-High</td></tr>
+      <tr><td>Resources / Lead Magnets</td><td>2</td><td><span class="tag tag-red">New</span></td><td>Medium</td></tr>
+      <tr><td>Legal</td><td>2</td><td><span class="tag tag-red">New</span></td><td>Low</td></tr>
+      <tr><td><strong>TOTAL</strong></td><td><strong>81 (Phase 1–4) + 30 blog posts</strong></td><td>—</td><td>—</td></tr>
+    </table></div>
+  </div>
+</div>
+
+<!-- ═══ S4: NAVIGATION ════════════════════════════════════════════════════════ -->
+<div class="section" id="s4">
+  <div class="section-header">
+    <div class="section-num">4</div>
+    <h2>Navigation Design Spec</h2>
+  </div>
+  <div class="section-body">
+
+    <h3>Header Navigation</h3>
+    <p>Sticky header on scroll. Black background. Logo left. Nav items centered. Chartreuse CTA button right. Maximum 5 nav items before CTA.</p>
+
+    <div class="tbl-wrap"><table>
+      <tr><th>Position</th><th>Label</th><th>URL</th><th>Dropdown?</th><th>Notes</th></tr>
+      <tr><td>1</td><td>Services</td><td>/services/</td><td>✅ Mega-menu</td><td>Show all 8 service icons in a 2-col grid. Link to hub + each individual service page.</td></tr>
+      <tr><td>2</td><td>Commercial</td><td>/commercial-landscaping/</td><td>✅ Dropdown</td><td>Show 7 property types. Highlight "Request Commercial Quote" CTA in dropdown.</td></tr>
+      <tr><td>3</td><td>Locations</td><td>/locations/</td><td>✅ Dropdown</td><td>Show 13 cities in 2-col list. Include "See All Service Areas" link at bottom.</td></tr>
+      <tr><td>4</td><td>About</td><td>/about/</td><td>❌ No dropdown</td><td>Simple link. About is low-friction trust page.</td></tr>
+      <tr><td>5</td><td>Blog</td><td>/blog/</td><td>❌ No dropdown</td><td>Optional — can be under Resources if nav gets crowded.</td></tr>
+      <tr><td>CTA</td><td>Get a Free Quote</td><td>/contact/</td><td>—</td><td>Chartreuse background button. Bold text. RIGHT side of nav. This is the ONLY chartreuse element in the header.</td></tr>
+    </table></div>
+
+    <div class="callout warn">
+      <div class="callout-icon">⚠️</div>
+      <div><strong>Remove "Call Now" from navigation.</strong> Phone numbers in nav links create usability issues on desktop and can break sticky nav layouts. Place phone prominently in the header bar above the nav instead, alongside a click-to-call icon.</div>
+    </div>
+
+    <h3>Top Bar (Above Header Nav)</h3>
+    <p>Thin 36px bar above the main nav on desktop. Black background. Contains: phone number (click-to-call), service area text, and a trust signal such as "⭐ 4.9 Google Rating · 50+ Reviews."</p>
+
+    <h3>Footer Structure</h3>
+    <div class="tbl-wrap"><table>
+      <tr><th>Column 1</th><th>Column 2</th><th>Column 3</th><th>Column 4</th></tr>
+      <tr>
+        <td><strong>Services</strong><br>Lawn Care<br>Landscape Design<br>Irrigation<br>Tree &amp; Shrub Care<br>HOA Programs<br>View All Services</td>
+        <td><strong>Commercial</strong><br>HOA Communities<br>Office Parks<br>Retail Centers<br>Apartment Complexes<br>Medical Campuses<br>Get Commercial Quote</td>
+        <td><strong>Locations</strong><br>Winter Park<br>Lake Nona<br>Kissimmee<br>Windermere<br>Altamonte Springs<br>View All Areas</td>
+        <td><strong>Company</strong><br>About Us<br>Our Work (Gallery)<br>Reviews<br>Blog<br>Contact<br>Privacy Policy</td>
+      </tr>
+    </table></div>
+    <p>Footer bottom strip: copyright, phone, email, social icons (Facebook, Instagram, Google Business), license number.</p>
+
+    <h3>Breadcrumbs</h3>
+    <p>Required on all pages below level 1. Format: <code>Home &gt; Commercial Landscaping &gt; HOA Communities &gt; Winter Park</code>. Breadcrumbs should mirror URL structure exactly and include BreadcrumbList schema on every page that shows them.</p>
+  </div>
+</div>
+
+<!-- ═══ S5: TECHNICAL SEO ════════════════════════════════════════════════════ -->
+<div class="section" id="s5">
+  <div class="section-header">
+    <div class="section-num">5</div>
+    <h2>Technical SEO Foundation</h2>
+  </div>
+  <div class="section-body">
+
+    <h3>Core Web Vitals Targets</h3>
+    <div class="card-grid">
+      <div class="card green"><div class="card-label">LCP Target</div><h4>&lt; 2.0s</h4><p>Largest Contentful Paint. Hero image must be preloaded with <code>fetchpriority="high"</code>. Use WebP/AVIF formats.</p></div>
+      <div class="card green"><div class="card-label">INP Target</div><h4>&lt; 150ms</h4><p>Interaction to Next Paint. Minimize JS execution on main thread. Defer non-critical scripts.</p></div>
+      <div class="card green"><div class="card-label">CLS Target</div><h4>&lt; 0.05</h4><p>Cumulative Layout Shift. Set explicit width/height on all images and embeds. Reserve space for lazy-loaded content.</p></div>
+      <div class="card green"><div class="card-label">TTFB Target</div><h4>&lt; 400ms</h4><p>Time to First Byte. Use a CDN (Cloudflare). Server response under 200ms. Enable HTTP/3 where supported.</p></div>
+    </div>
+
+    <h3>URL Canonical Rules</h3>
+    <pre>
+# Every page: self-referencing canonical tag
+&lt;link rel="canonical" href="https://primeoutdoorexperts.com/[current-path]/" /&gt;
+
+# Enforce HTTPS always — 301 redirect all HTTP
+# Enforce trailing slash consistently — pick one, redirect the other
+# www vs non-www — pick one canonical, 301 the other
+# Recommended: non-www with trailing slash
+# e.g. primeoutdoorexperts.com/commercial-landscaping/ ← canonical
+# www.primeoutdoorexperts.com/commercial-landscaping  ← 301 to above</pre>
+
+    <h3>robots.txt Requirements</h3>
+    <pre>
+User-agent: *
+Allow: /
+Disallow: /wp-admin/
+Disallow: /wp-login.php
+Disallow: /cart/
+Disallow: /checkout/
+Disallow: /?s=
+Sitemap: https://primeoutdoorexperts.com/sitemap.xml
+
+# Allow all AI search bots for citation potential
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# Block only training-only crawlers
+User-agent: CCBot
+Disallow: /</pre>
+
+    <h3>XML Sitemap Strategy</h3>
+    <div class="tbl-wrap"><table>
+      <tr><th>Sitemap File</th><th>Contains</th><th>Update Frequency</th></tr>
+      <tr><td>/sitemap.xml</td><td>Sitemap index (links to all below)</td><td>Auto-updated</td></tr>
+      <tr><td>/sitemap-core.xml</td><td>Homepage, About, Contact, Reviews, Gallery, Services hub, Commercial hub, Residential, Locations hub</td><td>Monthly</td></tr>
+      <tr><td>/sitemap-services.xml</td><td>All 8 individual service pages</td><td>Quarterly</td></tr>
+      <tr><td>/sitemap-commercial.xml</td><td>All 7 property-type pages + 12 combo pages</td><td>Quarterly</td></tr>
+      <tr><td>/sitemap-locations.xml</td><td>All 13 location pages</td><td>Quarterly</td></tr>
+      <tr><td>/sitemap-blog.xml</td><td>All blog posts (auto-generated by CMS)</td><td>On publish</td></tr>
+    </table></div>
+
+    <h3>Redirect Map (Critical)</h3>
+    <div class="tbl-wrap"><table>
+      <tr><th>Old URL</th><th>New URL</th><th>Type</th><th>Reason</th></tr>
+      <tr><td>/design-installation</td><td>/services/landscape-design-installation/</td><td>301</td><td>URL restructure</td></tr>
+      <tr><td>/testimonials</td><td>/reviews/</td><td>301</td><td>Rename + consolidate</td></tr>
+      <tr><td>/services (flat)</td><td>/services/ (hub)</td><td>301</td><td>Trailing slash canonical</td></tr>
+    </table></div>
+
+    <h3>Image SEO Requirements</h3>
+    <div class="tbl-wrap"><table>
+      <tr><th>Requirement</th><th>Spec</th></tr>
+      <tr><td>Format</td><td>WebP primary, AVIF for supporting browsers. Never PNG/JPG for photos on production.</td></tr>
+      <tr><td>Hero image</td><td>Max 200KB, 1440×810px, <code>fetchpriority="high"</code>, no lazy loading on above-fold images</td></tr>
+      <tr><td>Content images</td><td>Max 100KB, <code>loading="lazy"</code>, explicit width/height attributes set</td></tr>
+      <tr><td>File naming</td><td>Descriptive: <code>commercial-hoa-landscaping-winter-park-florida.webp</code> — never <code>IMG_3421.jpg</code></td></tr>
+      <tr><td>Alt text</td><td>Descriptive, keyword-natural. e.g.: <code>alt="HOA common area landscaping maintenance in Winter Park FL"</code></td></tr>
+      <tr><td>Responsive</td><td>Use <code>srcset</code> with 320w, 768w, 1200w breakpoints</td></tr>
+    </table></div>
+
+    <h3>Page Speed Checklist for Developers</h3>
+    <div class="pill-list">
+      <div class="pill active">CDN enabled (Cloudflare)</div>
+      <div class="pill active">HTTP/2 or HTTP/3</div>
+      <div class="pill active">Gzip / Brotli compression</div>
+      <div class="pill active">Browser caching headers set</div>
+      <div class="pill active">Critical CSS inlined</div>
+      <div class="pill active">Unused CSS removed</div>
+      <div class="pill active">JavaScript deferred / async</div>
+      <div class="pill active">Google Fonts self-hosted</div>
+      <div class="pill active">No render-blocking resources</div>
+      <div class="pill active">Preconnect for external domains</div>
+      <div class="pill active">Favicon optimized (ICO + SVG)</div>
+      <div class="pill active">OG images per page (1200×630)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ S6: SCHEMA MARKUP ════════════════════════════════════════════════════ -->
+<div class="section" id="s6">
+  <div class="section-header">
+    <div class="section-num">6</div>
+    <h2>Schema Markup Plan</h2>
+  </div>
+  <div class="section-body">
+
+    <p>All schema should be implemented as JSON-LD in the <code>&lt;head&gt;</code> of each page. Use the <code>@graph</code> pattern to combine multiple schema types per page. Validate with Google's Rich Results Test before launch.</p>
+
+    <h3>Homepage Schema</h3>
+    <pre>
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://primeoutdoorexperts.com/#business",
+      "name": "Prime Outdoor Experts LLC",
+      "description": "Professional commercial and residential landscaping in Orlando, FL. Serving HOAs, office parks, retail centers, and homeowners across Central Florida.",
+      "url": "https://primeoutdoorexperts.com",
+      "telephone": "+14074434505",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "[Street Address]",
+        "addressLocality": "Lake Mary",
+        "addressRegion": "FL",
+        "postalCode": "32771",
+        "addressCountry": "US"
+      },
+      "geo": { "@type": "GeoCoordinates", "latitude": 28.7589, "longitude": -81.3178 },
+      "areaServed": [
+        "Orlando", "Winter Park", "Lake Nona", "Kissimmee", "Windermere",
+        "Altamonte Springs", "Maitland", "Winter Garden", "Lake Mary",
+        "Sanford", "Apopka", "Ocoee", "Celebration", "Dr. Phillips"
+      ],
+      "serviceType": ["Commercial Landscaping", "Residential Landscaping", "HOA Landscaping",
+        "Lawn Care", "Landscape Design", "Irrigation", "Tree Care"],
+      "priceRange": "$$",
+      "openingHoursSpecification": [ ... ],
+      "sameAs": [
+        "https://www.facebook.com/primeoutdoorexperts",
+        "https://www.instagram.com/primeoutdoorexperts",
+        "[Google Business Profile URL]"
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "52",
+        "bestRating": "5"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://primeoutdoorexperts.com/#website",
+      "url": "https://primeoutdoorexperts.com",
+      "name": "Prime Outdoor Experts",
+      "publisher": { "@id": "https://primeoutdoorexperts.com/#business" }
+    }
+  ]
+}</pre>
+
+    <h3>Schema Map by Page Type</h3>
+    <div class="tbl-wrap"><table>
+      <tr><th>Page Type</th><th>Schema Types</th><th>Key Rich Result</th></tr>
+      <tr><td>Homepage</td><td>LocalBusiness, WebSite, AggregateRating</td><td>Business knowledge panel, star rating</td></tr>
+      <tr><td>Individual Service Pages</td><td>Service, FAQPage, BreadcrumbList, LocalBusiness</td><td>FAQ rich snippets below listing</td></tr>
+      <tr><td>Commercial Property-Type Pages</td><td>Service, FAQPage, BreadcrumbList</td><td>FAQ rich snippets</td></tr>
+      <tr><td>Location Pages</td><td>LocalBusiness (with areaServed), FAQPage, BreadcrumbList</td><td>Local pack signals + FAQ</td></tr>
+      <tr><td>Combo pSEO Pages</td><td>Service, FAQPage, BreadcrumbList</td><td>FAQ rich snippets</td></tr>
+      <tr><td>Blog Posts</td><td>BlogPosting, Article, BreadcrumbList, FAQPage (if applicable)</td><td>Article enhanced display, FAQ</td></tr>
+      <tr><td>About Page</td><td>Organization, Person (team members)</td><td>E-E-A-T signals</td></tr>
+      <tr><td>Reviews Page</td><td>AggregateRating, Review array</td><td>Star ratings in SERPs</td></tr>
+      <tr><td>Contact Page</td><td>ContactPage, LocalBusiness</td><td>Contact info rich result</td></tr>
+      <tr><td>Gallery</td><td>ImageGallery, ImageObject array</td><td>Image pack eligibility</td></tr>
+    </table></div>
+
+    <h3>FAQPage Schema Template (reuse on every service/commercial page)</h3>
+    <pre>
+{
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How much does commercial landscaping cost in Orlando, FL?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Commercial landscaping in Orlando typically ranges from $300 to $2,500+ per month depending on property size, service frequency, and scope. Prime Outdoor Experts offers customized monthly maintenance contracts for HOAs, office parks, and retail centers. Contact us for a free property assessment."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you serve [property type / city]?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Prime Outdoor Experts serves [property type] properties throughout [city] and the greater Orlando area, including [nearby cities]. We provide commercial landscaping maintenance, irrigation, tree care, and landscape enhancements. Call (407) 443-4505 for a free quote."
+      }
+    }
+  ]
+}</pre>
+
+  </div>
+</div>
+
+<!-- ═══ S7: AI SEO ════════════════════════════════════════════════════════════ -->
+<div class="section" id="s7">
+  <div class="section-header">
+    <div class="section-num">7</div>
+    <h2>AI SEO Requirements</h2>
+  </div>
+  <div class="section-body">
+
+    <div class="callout lime">
+      <div class="callout-icon">🤖</div>
+      <div>~45% of Google searches now show AI Overviews. ChatGPT and Perplexity are growing fast. Content that earns citations in AI answers gets exposure even when the user never clicks. Structured, authoritative content is the path to AI citation.</div>
+    </div>
+
+    <h3>Content Structure Rules for AI Extractability</h3>
+    <p>Every service, commercial, and location page must follow this structure to maximize AI Overview and LLM citation rates:</p>
+
+    <div class="tbl-wrap"><table>
+      <tr><th>Element</th><th>Requirement</th><th>Why It Works</th></tr>
+      <tr><td>Opening definition</td><td>First 50 words must contain a clear definition/description of what the page is about. "Prime Outdoor Experts provides HOA landscaping services in Winter Park, FL — including common area maintenance, entrance feature design, irrigation management, and seasonal color rotations."</td><td>AI systems extract the first clear definition. This becomes the citation text.</td></tr>
+      <tr><td>Statistic blocks</td><td>Each commercial page must include at least 2 cited statistics. e.g.: "HOA communities with professional landscaping see property values increase 15–20%, according to the National Association of Realtors (2023)."</td><td>+37–40% AI citation boost from cited statistics (Princeton GEO study)</td></tr>
+      <tr><td>FAQ section</td><td>4–6 natural-language Q&amp;As at bottom of every service and commercial page. Questions should match how buyers actually search.</td><td>FAQ schema enables rich snippets AND AI extracts Q&amp;A pairs directly</td></tr>
+      <tr><td>Step-by-step sections</td><td>Use numbered lists for "how it works" or process content. e.g. "How Our Commercial Landscaping Process Works: 1. Free property assessment… 2. Custom maintenance plan… 3. Scheduled crew visits…"</td><td>AI systems prefer numbered process content for "how to" queries</td></tr>
+      <tr><td>Comparison tables</td><td>Commercial pages comparing property types or service tiers should use HTML tables, not bullet prose.</td><td>Tables are extracted directly by AI systems for comparison queries</td></tr>
+      <tr><td>Author attribution</td><td>Blog posts must show author name, title, and credentials. e.g.: "Written by [Name], Certified Landscape Professional (CLP), 15 years serving Orlando."</td><td>+25–30% AI citation boost from expert attribution</td></tr>
+      <tr><td>Last-updated date</td><td>Visible "Last updated: [Month Year]" on all blog posts and guides.</td><td>AI systems weight content recency heavily</td></tr>
+    </table></div>
+
+    <h3>Target Queries for AI Overviews</h3>
+    <div class="pill-list">
+      <div class="pill active">best commercial landscaping company orlando fl</div>
+      <div class="pill active">hoa landscaping services orlando</div>
+      <div class="pill active">how much does commercial landscaping cost florida</div>
+      <div class="pill active">what is included in commercial lawn care orlando</div>
+      <div class="pill active">office park landscaping orlando fl</div>
+      <div class="pill active">commercial landscaping companies winter park fl</div>
+      <div class="pill active">landscaping for apartment complexes orlando</div>
+      <div class="pill active">florida native plants for commercial landscaping</div>
+    </div>
+
+    <h3>Third-Party Presence (AI cites these more than your own site)</h3>
+    <div class="card-grid">
+      <div class="card accent"><h4>Google Business Profile</h4><p>Fully optimized GBP with all 12 services, attributes, Q&amp;A, and weekly posts. GBP is a top AI signal for local queries.</p></div>
+      <div class="card accent"><h4>Houzz Profile</h4><p>Houzz is frequently cited by AI for landscaping queries. Complete company profile with project photos and reviews.</p></div>
+      <div class="card accent"><h4>Angi / HomeAdvisor</h4><p>Maintain active profiles. AI Overviews for "best landscaping company near me" pull from these directories.</p></div>
+      <div class="card accent"><h4>Yelp</h4><p>Active Yelp profile with photos and responding to reviews. Yelp is a significant AI citation source for local services.</p></div>
+      <div class="card accent"><h4>YouTube</h4><p>2–3 YouTube videos covering "How we maintain commercial landscapes in Orlando" — YouTube is cited in ~12% of AI Overviews.</p></div>
+      <div class="card accent"><h4>Local News / Press</h4><p>One press mention in Orlando Sentinel, Lake Nona Life, or similar local publication = significant AI authority signal.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ S8: PAGE SPECS — CORE PAGES ══════════════════════════════════════════ -->
+<div class="section" id="s8">
+  <div class="section-header">
+    <div class="section-num">8</div>
+    <h2>Page Specs — Core Pages</h2>
+  </div>
+  <div class="section-body">
+
+    <!-- HOMEPAGE -->
+    <div class="page-spec">
+      <div class="page-spec-header">
+        <span>🏠 Homepage</span>
+        <span class="url">primeoutdoorexperts.com/</span>
+        <span class="ptype">REBUILD · Highest Priority</span>
+      </div>
+      <div class="page-spec-body">
+        <div class="spec-field">
+          <label>Title Tag (55 chars)</label>
+          <p>Prime Outdoor Experts | Orlando Commercial Landscaping</p>
+        </div>
+        <div class="spec-field">
+          <label>Meta Description (155 chars)</label>
+          <p>Professional commercial &amp; residential landscaping in Orlando, FL. HOA communities, office parks, retail centers &amp; homes. 5-county service area. Free quote: (407) 443-4505.</p>
+        </div>
+        <div class="spec-field full">
+          <label>H1 Headline Options (pick one, test the other)</label>
+          <p><strong>Option A:</strong> "Orlando's Commercial Landscaping Experts — Serving HOAs, Office Parks &amp; Property Managers"<br>
+          <strong>Option B:</strong> "Landscaping That Works as Hard as Your Business. Orlando's #1 Commercial &amp; Residential Experts."</p>
+        </div>
+        <div class="spec-field full">
+          <label>Page Sections (in order)</label>
+          <p><strong>1. Hero</strong> — Dark BG, H1, subheadline, two CTAs ("Get Commercial Quote" primary / "See Our Work" secondary), trust bar (star rating + review count + counties served)<br>
+          <strong>2. Social Proof Bar</strong> — logos of notable commercial clients OR "Trusted by 200+ Orlando properties" + star rating<br>
+          <strong>3. Service Split</strong> — Two clear paths: Commercial (links to /commercial-landscaping/) and Residential (links to /residential/). Commercial visually larger (70/30 hierarchy).<br>
+          <strong>4. Commercial Property Types</strong> — Icon grid: HOA · Office Parks · Retail · Apartments · Medical · Industrial · Hospitality<br>
+          <strong>5. Why Prime OE</strong> — 4 differentiators with icons: Same crew every visit · Digital reporting · 5-county coverage · Free property assessment<br>
+          <strong>6. Service Area Map</strong> — Interactive or visual map showing all service cities. Linked pins for each location page.<br>
+          <strong>7. Recent Work Gallery</strong> — 6-photo grid. Before/after pairs preferred. Links to /gallery/<br>
+          <strong>8. Testimonials</strong> — 3 testimonials with star ratings, client name, property type. Link to /reviews/<br>
+          <strong>9. Blog Preview</strong> — 3 latest blog posts (auto-pulled from CMS)<br>
+          <strong>10. Final CTA Band</strong> — Dark background. "Ready to Elevate Your Property?" + Get Free Quote button + phone number</p>
+        </div>
+        <div class="spec-field">
+          <label>Primary CTA</label>
+          <p>Get a Free Commercial Quote → /contact/?type=commercial</p>
+        </div>
+        <div class="spec-field">
+          <label>Schema</label>
+          <p>LocalBusiness + WebSite + AggregateRating + BreadcrumbList</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- INDIVIDUAL SERVICE PAGE SPEC -->
+    <div class="page-spec">
+      <div class="page-spec-header">
+        <span>🌿 Individual Service Pages</span>
+        <span class="url">/services/[service-slug]/</span>
+        <span class="ptype">8 pages · Template-based · NEW</span>
+      </div>
+      <div class="page-spec-body">
+        <div class="spec-field">
+          <label>Title Tag Template</label>
+          <p>[Service Name] in Orlando, FL | Prime Outdoor Experts</p>
+        </div>
+        <div class="spec-field">
+          <label>Meta Description Template</label>
+          <p>Professional [service] for commercial and residential properties in Orlando, FL. Serving [top 3 cities]. Free estimates. Call Prime Outdoor Experts: (407) 443-4505. (under 155 chars)</p>
+        </div>
+        <div class="spec-field full">
+          <label>H1 Template</label>
+          <p>[Service Name] in Orlando, FL — Commercial &amp; Residential</p>
+        </div>
+        <div class="spec-field full">
+          <label>Page Section Template</label>
+          <p><strong>1. Hero</strong> — Service name, one-line benefit statement, CTA "Get a Free [Service] Quote"<br>
+          <strong>2. What's Included</strong> — Specific scope of service (not generic). 5–8 items with brief descriptions.<br>
+          <strong>3. Commercial vs. Residential</strong> — Two-column split showing service differences for each audience type<br>
+          <strong>4. Why It Matters</strong> — 2-3 paragraph content block. Natural keyword inclusion. Must cite a statistic.<br>
+          <strong>5. Service Area</strong> — "We provide [service] across: Winter Park, Lake Nona, Kissimmee..." with linked city names<br>
+          <strong>6. Portfolio</strong> — 4–6 photos specific to this service<br>
+          <strong>7. FAQ</strong> — 4–6 Q&amp;As with FAQPage schema. Questions should match real search queries.<br>
+          <strong>8. Related Services</strong> — 3 internal links to related service pages<br>
+          <strong>9. CTA</strong> — "Request a free [service] quote" + phone</p>
+        </div>
+        <div class="spec-field">
+          <label>Word Count Target</label>
+          <p>600–900 words minimum of unique content (not duplicated from other service pages)</p>
+        </div>
+        <div class="spec-field">
+          <label>Internal Links Required</label>
+          <p>Link to: /commercial-landscaping/, parent service hub, 2 related services, 2 relevant location pages, /contact/</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABOUT PAGE -->
+    <div class="page-spec">
+      <div class="page-spec-header">
+        <span>🏢 About Page</span>
+        <span class="url">/about/</span>
+        <span class="ptype">NEW · E-E-A-T critical</span>
+      </div>
+      <div class="page-spec-body">
+        <div class="spec-field">
+          <label>Title Tag</label>
+          <p>About Prime Outdoor Experts | Orlando Landscaping Company Since [Year]</p>
+        </div>
+        <div class="spec-field">
+          <label>Purpose</label>
+          <p>E-E-A-T signal. Google values business transparency. This page should establish authority, experience, and trust for both users and AI citation systems.</p>
+        </div>
+        <div class="spec-field full">
+          <label>Required Content</label>
+          <p><strong>Company story</strong> — When founded, why, by whom. Humanize the brand.<br>
+          <strong>Team section</strong> — Named people with titles and headshots. Certifications displayed (ISA, FNGLA, etc.)<br>
+          <strong>Numbers block</strong> — "X years in business · X properties served · X counties · X Google rating"<br>
+          <strong>Certifications/Licenses</strong> — Florida Pesticide License number, any ISA certifications, liability insurance statement<br>
+          <strong>Service area map</strong> — Interactive map with all 13+ cities marked<br>
+          <strong>Company values</strong> — 3–4 concrete values with real-world examples, not buzzwords<br>
+          <strong>CTA</strong> — "Schedule a free property assessment"</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- REVIEWS PAGE -->
+    <div class="page-spec">
+      <div class="page-spec-header">
+        <span>⭐ Reviews Page</span>
+        <span class="url">/reviews/</span>
+        <span class="ptype">NEW · Replaces /testimonials/</span>
+      </div>
+      <div class="page-spec-body">
+        <div class="spec-field full">
+          <label>Purpose &amp; Content</label>
+          <p>Aggregate reviews from Google, Yelp, Houzz. Show aggregate star rating prominently. Display 15–20 individual reviews with: star rating, reviewer name, review text, source (Google/Yelp), property type (HOA / Residential / Commercial). Add AggregateRating + Review schema so star ratings appear in Google search results for branded queries.</p>
+        </div>
+        <div class="spec-field">
+          <label>Title Tag</label>
+          <p>Customer Reviews | Prime Outdoor Experts Orlando, FL</p>
+        </div>
+        <div class="spec-field">
+          <label>Schema</label>
+          <p>AggregateRating + up to 10 Review objects (Google supports up to ~10 in rich results)</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ S9: COMMERCIAL pSEO PAGES ════════════════════════════════════════════ -->
+<div class="section" id="s9">
+  <div class="section-header">
+    <div class="section-num">9</div>
+    <h2>Page Specs — Commercial &amp; pSEO Pages</h2>
+  </div>
+  <div class="section-body">
+
+    <div class="callout lime">
+      <div class="callout-icon">🏆</div>
+      <div><strong>First-mover opportunity:</strong> Our research across 12 commercial landscaping competitors in Orlando found ZERO with property-type × location combo pages. Building these 12 combo pages puts Prime OE immediately in a category of one for these queries.</div>
+    </div>
+
+    <h3>Commercial Hub Page (/commercial-landscaping/)</h3>
+    <div class="tbl-wrap"><table>
+      <tr><th>Element</th><th>Spec</th></tr>
+      <tr><td>Title Tag</td><td>Commercial Landscaping Orlando FL | Prime Outdoor Experts (55 chars)</td></tr>
+      <tr><td>Meta Description</td><td>Professional commercial landscaping for HOAs, office parks, retail centers &amp; apartment complexes in Orlando, FL. Custom maintenance contracts. Free property assessment.</td></tr>
+      <tr><td>H1</td><td>Commercial Landscaping in Orlando, FL — Built for Property Managers &amp; HOA Boards</td></tr>
+      <tr><td>Target Keywords</td><td>"commercial landscaping orlando fl" (primary), "commercial landscaping company orlando", "commercial lawn care orlando fl"</td></tr>
+      <tr><td>Word Count</td><td>800–1,200 words unique content</td></tr>
+      <tr><td>Key Sections</td><td>Hero · Property Type Grid (7 types with links) · Services Included · Why Prime OE for Commercial · Client Portfolio · Commercial FAQ (6 Q&amp;As) · Location Coverage · CTA</td></tr>
+      <tr><td>Internal Links</td><td>All 7 property-type pages · All 13 location pages · /services/ hub · /contact/?type=commercial</td></tr>
+    </table></div>
+
+    <h3>Property-Type Page Template</h3>
+    <p>All 7 property-type pages follow this structure. The content must be genuinely differentiated — different pain points, different services emphasis, different buyer persona language for each property type.</p>
+
+    <div class="tbl-wrap"><table>
+      <tr><th>Property Type</th><th>Primary Keyword</th><th>Buyer Persona</th><th>Key Pain Point to Lead With</th><th>Unique Content Angle</th></tr>
+      <tr><td>/commercial-landscaping/hoa-communities/</td><td>HOA landscaping orlando fl</td><td>HOA Board Member / Property Manager</td><td>"Missed visits and inconsistent crews draw board complaints"</td><td>Same crew every visit, board meeting attendance, photo reporting</td></tr>
+      <tr><td>/commercial-landscaping/office-parks/</td><td>office park landscaping orlando fl</td><td>Property Manager / Facilities Director</td><td>"First impression when clients arrive — parking lot and entrance landscaping"</td><td>Professional corporate aesthetic, tenant satisfaction, Maitland Center expertise</td></tr>
+      <tr><td>/commercial-landscaping/retail-centers/</td><td>retail center landscaping orlando fl</td><td>Property Manager / Retail Owner</td><td>"Curb appeal drives foot traffic — dead plants and overgrown beds lose customers"</td><td>Parking lot islands, entrance features, seasonal color to drive visits</td></tr>
+      <tr><td>/commercial-landscaping/apartment-complexes/</td><td>apartment complex landscaping orlando fl</td><td>Property Manager / Leasing Manager</td><td>"Curb appeal is the first thing prospective residents see — it affects lease-up rates"</td><td>Pool surrounds, dog parks, amenity areas, Lake Nona new construction expertise</td></tr>
+      <tr><td>/commercial-landscaping/medical-campuses/</td><td>medical campus landscaping orlando fl</td><td>Facilities Manager / Healthcare Admin</td><td>"Healing environments matter — outdoor spaces affect patient outcomes and staff wellbeing"</td><td>ADA compliance, HIPAA-safe outdoor spaces, Lake Nona Medical City references</td></tr>
+      <tr><td>/commercial-landscaping/industrial-facilities/</td><td>industrial landscaping orlando fl</td><td>Facilities Manager / Operations Director</td><td>"Low-maintenance, compliance-first landscaping that won't disrupt operations"</td><td>Native plant selection, erosion control, minimal water usage, code compliance</td></tr>
+      <tr><td>/commercial-landscaping/hospitality-hotels/</td><td>hotel landscaping orlando fl</td><td>General Manager / Facilities Manager</td><td>"Guest experience starts at check-in — arrival landscaping sets the tone for the stay"</td><td>Pool areas, outdoor dining, seasonal event florals, I-Drive corridor expertise</td></tr>
+    </table></div>
+
+    <h3>Location Page Template (/locations/[city]/)</h3>
+    <div class="tbl-wrap"><table>
+      <tr><th>Element</th><th>Spec</th></tr>
+      <tr><td>Title Tag Template</td><td>Landscaping in [City], FL | Commercial &amp; Residential | Prime Outdoor Experts</td></tr>
+      <tr><td>H1 Template</td><td>Commercial &amp; Residential Landscaping in [City], FL</td></tr>
+      <tr><td>Required Unique Content</td><td>Must reference: (1) city-specific neighborhoods/districts, (2) local landscaping considerations (soil, shade, HOA rules), (3) notable local commercial areas served, (4) nearby cities also served</td></tr>
+      <tr><td>Services Shown</td><td>Same 8 services listed but with mention of how they apply locally</td></tr>
+      <tr><td>Internal Links</td><td>Parent /locations/ hub, relevant combo pSEO pages for this city, /commercial-landscaping/ hub, /contact/</td></tr>
+      <tr><td>Schema</td><td>LocalBusiness with areaServed set to this specific city, FAQPage, BreadcrumbList</td></tr>
+    </table></div>
+
+    <h3>Combo pSEO Page Template (/commercial-landscaping/[type]/[city]/)</h3>
+    <div class="tbl-wrap"><table>
+      <tr><th>Element</th><th>Spec</th></tr>
+      <tr><td>Title Tag Template</td><td>[Property Type] Landscaping in [City], FL | Prime Outdoor Experts</td></tr>
+      <tr><td>H1 Template</td><td>[Property Type] Landscaping Services in [City], FL</td></tr>
+      <tr><td>Opening Paragraph</td><td>Must contain BOTH the property type AND city-specific context in the first 60 words. Name actual neighborhoods, developments, or business districts in that city.</td></tr>
+      <tr><td>City-Specific Section</td><td>200+ words unique to this city: local regulations, landscape challenges (drought, shade, HOA aesthetic), named local developments or districts</td></tr>
+      <tr><td>Services Listed</td><td>Tailored to this property type (not copy-pasted from parent page)</td></tr>
+      <tr><td>Breadcrumbs</td><td>Home › Commercial Landscaping › [Property Type] › [City]</td></tr>
+      <tr><td>Internal Links</td><td>Parent property-type hub, parent location page, 2 adjacent combo pages, /contact/</td></tr>
+      <tr><td>Word Count</td><td>400–600 words UNIQUE content. DO NOT duplicate from parent pages or Google will flag as thin.</td></tr>
+    </table></div>
+
+  </div>
+</div>
+
+<!-- ═══ S10: CONTENT STRATEGY ════════════════════════════════════════════════ -->
+<div class="section" id="s10">
+  <div class="section-header">
+    <div class="section-num">10</div>
+    <h2>Content Strategy &amp; Blog</h2>
+  </div>
+  <div class="section-body">
+
+    <h3>Content Pillars</h3>
+    <div class="card-grid">
+      <div class="card accent">
+        <div class="card-label">Pillar 1 — Primary</div>
+        <h4>Commercial Landscaping</h4>
+        <p>HOA guides, property manager resources, office park tips, retail landscaping ROI. Target: property managers, HOA boards, facilities directors.</p>
+      </div>
+      <div class="card accent">
+        <div class="card-label">Pillar 2</div>
+        <h4>Florida Lawn &amp; Plant Care</h4>
+        <p>Florida-specific lawn care guides (St. Augustine, Zoysia, Bahia grass), native plants, watering schedules, hurricane prep. Target: homeowners + HOA boards.</p>
+      </div>
+      <div class="card accent">
+        <div class="card-label">Pillar 3</div>
+        <h4>Landscape Design &amp; Ideas</h4>
+        <p>Design inspiration, before/after projects, curb appeal tips, sustainable landscaping. Target: homeowners + developers.</p>
+      </div>
+      <div class="card accent">
+        <div class="card-label">Pillar 4</div>
+        <h4>Orlando Area &amp; Local</h4>
+        <p>Local plant guides, drought/heat tips specific to Central Florida, Lake Nona development landscaping, seasonal care calendar for Orlando. Target: all audiences — builds local authority.</p>
+      </div>
+      <div class="card accent">
+        <div class="card-label">Pillar 5</div>
+        <h4>Industry &amp; Thought Leadership</h4>
+        <p>Commercial landscaping ROI data, AI in landscaping, sustainable practices, property value impact. Target: property managers, developers. AI citation-optimized format.</p>
+      </div>
+    </div>
+
+    <h3>Year 1 Blog Calendar — 30 Priority Posts</h3>
+    <div class="tbl-wrap"><table>
+      <tr><th>#</th><th>Post Title</th><th>Pillar</th><th>Target Keyword</th><th>Buyer Stage</th><th>Quarter</th></tr>
+      <tr><td>1</td><td>How Much Does Commercial Landscaping Cost in Orlando? (2026 Guide)</td><td>Commercial</td><td>commercial landscaping cost orlando</td><td>Consideration</td><td>Q1</td></tr>
+      <tr><td>2</td><td>HOA Landscaping in Orlando: What to Expect from Your Contractor</td><td>Commercial</td><td>HOA landscaping contractor orlando</td><td>Consideration</td><td>Q1</td></tr>
+      <tr><td>3</td><td>Best Grass Types for Orlando, FL: St. Augustine, Zoysia, or Bahia?</td><td>Florida Care</td><td>best grass type orlando florida</td><td>Awareness</td><td>Q1</td></tr>
+      <tr><td>4</td><td>The Ultimate Orlando Lawn Care Calendar: Month-by-Month</td><td>Florida Care</td><td>orlando lawn care calendar</td><td>Awareness</td><td>Q1</td></tr>
+      <tr><td>5</td><td>Commercial Landscaping ROI: How Curb Appeal Impacts Property Value</td><td>Thought Leadership</td><td>commercial landscaping ROI property value</td><td>Awareness</td><td>Q1</td></tr>
+      <tr><td>6</td><td>Office Park Landscaping: What Property Managers Need to Know</td><td>Commercial</td><td>office park landscaping guide</td><td>Consideration</td><td>Q1</td></tr>
+      <tr><td>7</td><td>Florida Drought-Tolerant Plants for Commercial Properties</td><td>Florida Care</td><td>drought tolerant plants florida commercial</td><td>Awareness</td><td>Q2</td></tr>
+      <tr><td>8</td><td>How to Write a Commercial Landscaping RFP (Template Included)</td><td>Commercial</td><td>commercial landscaping RFP template</td><td>Decision</td><td>Q2</td></tr>
+      <tr><td>9</td><td>Irrigation Audit Guide for Orlando Commercial Properties</td><td>Commercial</td><td>commercial irrigation audit orlando</td><td>Consideration</td><td>Q2</td></tr>
+      <tr><td>10</td><td>Lake Nona Landscaping Guide: Design for the Medical City Corridor</td><td>Orlando Local</td><td>lake nona landscaping guide</td><td>Awareness</td><td>Q2</td></tr>
+      <tr><td>11</td><td>Hurricane Season Landscaping Prep for Central Florida Properties</td><td>Florida Care</td><td>hurricane season landscaping florida</td><td>Awareness</td><td>Q2</td></tr>
+      <tr><td>12</td><td>HOA Landscaping Compliance: Florida Rules You Need to Know</td><td>Commercial</td><td>HOA landscaping rules florida</td><td>Consideration</td><td>Q2</td></tr>
+      <tr><td>13</td><td>Winter Park Landscaping: Regulations, Trees, and Curb Appeal Standards</td><td>Orlando Local</td><td>winter park fl landscaping regulations</td><td>Awareness</td><td>Q3</td></tr>
+      <tr><td>14</td><td>Sustainable Landscaping for Orlando Businesses (Water, Energy, Cost)</td><td>Thought Leadership</td><td>sustainable landscaping orlando businesses</td><td>Awareness</td><td>Q3</td></tr>
+      <tr><td>15</td><td>Florida Native Plants for HOA Common Areas</td><td>Florida Care</td><td>florida native plants HOA</td><td>Consideration</td><td>Q3</td></tr>
+      <tr><td>16</td><td>How to Choose a Commercial Landscaping Contractor in Orlando</td><td>Commercial</td><td>how to choose commercial landscaping contractor</td><td>Decision</td><td>Q3</td></tr>
+      <tr><td>17</td><td>Apartment Complex Landscaping: Amenity Areas That Win Leases</td><td>Commercial</td><td>apartment complex landscaping ideas</td><td>Awareness</td><td>Q3</td></tr>
+      <tr><td>18</td><td>Fall Landscape Refresh Tips for Orlando Commercial Properties</td><td>Orlando Local</td><td>fall landscape refresh orlando</td><td>Awareness</td><td>Q3</td></tr>
+      <tr><td>19</td><td>Retail Center Landscaping: How Curb Appeal Drives Foot Traffic</td><td>Commercial</td><td>retail center landscaping curb appeal</td><td>Awareness</td><td>Q4</td></tr>
+      <tr><td>20</td><td>Commercial Landscape Maintenance Contracts: What's Included?</td><td>Commercial</td><td>commercial landscape maintenance contract</td><td>Consideration</td><td>Q4</td></tr>
+      <tr><td>21</td><td>Best Mulch for Florida Landscaping (Commercial &amp; Residential)</td><td>Florida Care</td><td>best mulch florida landscaping</td><td>Awareness</td><td>Q4</td></tr>
+      <tr><td>22</td><td>Medical Campus Landscape Design: Creating Healing Environments</td><td>Commercial</td><td>medical campus landscape design</td><td>Awareness</td><td>Q4</td></tr>
+      <tr><td>23</td><td>Kissimmee Commercial Landscaping Guide for Property Managers</td><td>Orlando Local</td><td>commercial landscaping kissimmee fl</td><td>Consideration</td><td>Q4</td></tr>
+      <tr><td>24</td><td>2026 Orlando Landscaping Trends for Commercial Properties</td><td>Thought Leadership</td><td>commercial landscaping trends 2026</td><td>Awareness</td><td>Q4</td></tr>
+      <tr><td>25</td><td>How to Reduce Commercial Irrigation Costs in Florida</td><td>Commercial</td><td>reduce irrigation costs florida commercial</td><td>Consideration</td><td>Q4</td></tr>
+      <tr><td>26</td><td>Landscape Lighting for Commercial Properties in Orlando</td><td>Design &amp; Ideas</td><td>commercial landscape lighting orlando</td><td>Consideration</td><td>Q4</td></tr>
+      <tr><td>27</td><td>Before &amp; After: Commercial Landscape Transformations in Lake Nona</td><td>Design &amp; Ideas</td><td>commercial landscape before after lake nona</td><td>Decision</td><td>Ongoing</td></tr>
+      <tr><td>28</td><td>HOA Common Area Landscaping Ideas That Residents Will Love</td><td>Commercial</td><td>HOA common area landscaping ideas</td><td>Awareness</td><td>Ongoing</td></tr>
+      <tr><td>29</td><td>How We Maintain 50+ Commercial Properties in Orlando (Our Process)</td><td>Thought Leadership</td><td>commercial landscaping process orlando</td><td>Decision</td><td>Ongoing</td></tr>
+      <tr><td>30</td><td>The Property Manager's Guide to Landscaping Vendor Selection</td><td>Commercial</td><td>property manager landscaping vendor guide</td><td>Decision</td><td>Ongoing</td></tr>
+    </table></div>
+
+    <div class="callout info">
+      <div class="callout-icon">📝</div>
+      <div><strong>Cornerstone Content:</strong> Post #8 (RFP template) and Post #1 (cost guide) should be the most comprehensive pieces published — 2,000+ words each, with downloadable templates as lead magnets. These are highly citable by AI systems and should rank for high-intent queries.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ S11: CRO ══════════════════════════════════════════════════════════════ -->
+<div class="section" id="s11">
+  <div class="section-header">
+    <div class="section-num">11</div>
+    <h2>Conversion Rate Optimization</h2>
+  </div>
+  <div class="section-body">
+
+    <h3>Homepage CRO — Section-by-Section</h3>
+    <div class="tbl-wrap"><table>
+      <tr><th>Section</th><th>CRO Principle</th><th>Specific Recommendation</th></tr>
+      <tr><td>Hero</td><td>5-second test clarity</td><td>Visitor must know in 5 seconds: (1) what you do, (2) where, (3) for whom. Add "serving Orlando's commercial properties since [year]" in subheadline.</td></tr>
+      <tr><td>Trust Bar</td><td>Social proof near CTA</td><td>Place "⭐ 4.9 · 52 Google Reviews · 200+ Orlando Properties Served" directly below the hero CTA — not hidden in header.</td></tr>
+      <tr><td>Services Grid</td><td>Reduce decision paralysis</td><td>Show 6 services max on homepage with "See all services →" link. More than 6 causes choice paralysis and reduces clicks.</td></tr>
+      <tr><td>Commercial Split</td><td>Audience segmentation</td><td>Property managers and homeowners want different things. Give each their own visual path. Commercial should be larger/more prominent given 70/30 focus.</td></tr>
+      <tr><td>Testimonials</td><td>Specificity builds trust</td><td>Generic "Great service!" testimonials are worthless. Each testimonial must include: property type, specific result, and reviewer's name/role. E.g.: "Our HOA board hasn't had a single complaint since we switched. Same crew every week." — Maria T., HOA Board President, Lake Nona</td></tr>
+      <tr><td>Gallery</td><td>Show, don't tell</td><td>Lead gallery with commercial before/afters. A dramatic before/after of an HOA entrance feature is worth 500 words of copy.</td></tr>
+      <tr><td>Footer CTA</td><td>Last-chance conversion</td><td>Don't end with contact info. End with "Ready to transform your property? Get your free assessment in 24 hours." + chartreuse button.</td></tr>
+    </table></div>
+
+    <h3>Lead Form Optimization</h3>
+    <div class="tbl-wrap"><table>
+      <tr><th>Element</th><th>Recommendation</th></tr>
+      <tr><td>Form length</td><td>Maximum 5 fields for initial contact: Name, Email, Phone, Property Type (dropdown), Message. Never ask for address on first form.</td></tr>
+      <tr><td>Property type field</td><td>Dropdown with: HOA Community / Office Park / Retail Center / Apartment Complex / Medical/Other Commercial / Residential Home / Other. This auto-segments leads immediately.</td></tr>
+      <tr><td>CTA button text</td><td>"Get My Free Quote" — NOT "Submit." The word Submit is clinically proven to reduce conversions.</td></tr>
+      <tr><td>Trust signal near form</td><td>"We respond within 2 business hours. Your info is never shared." + lock icon.</td></tr>
+      <tr><td>Confirmation page</td><td>After form submit, redirect to a /thank-you/ page (not a popup). Confirmation page = GA4 conversion event + re-engagement opportunity ("While you wait, read our guide to commercial landscaping costs").</td></tr>
+    </table></div>
+
+    <h3>Phone CTA Strategy</h3>
+    <p>Include a click-to-call phone number in: sticky header, hero section, mid-page CTA band, footer, and on mobile — as a floating sticky bottom bar. The phone number should be the Orlando number <strong>(407) 443-4505</strong> consistently (not the Miami number) since all target keywords are Orlando-focused.</p>
+
+    <h3>Exit Intent &amp; Scroll Triggers</h3>
+    <div class="card-grid">
+      <div class="card accent"><h4>Exit Intent Popup</h4><p>Desktop only. Trigger on exit intent. Offer: "Before you go — get a free commercial property assessment ($150 value)." Single email field. Connects to email nurture sequence.</p></div>
+      <div class="card accent"><h4>Scroll Trigger (50%)</h4><p>After user scrolls 50% of commercial pages, trigger a slide-in: "Get a custom quote for your property." Name + email + phone. Soft CTA, not aggressive.</p></div>
+      <div class="card accent"><h4>Mobile Sticky Bar</h4><p>On mobile, show a persistent bottom bar: "📞 Call (407) 443-4505" + "Get a Quote" button. Two CTAs for the two most common mobile conversion paths.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ S12: LEAD GENERATION ═════════════════════════════════════════════════ -->
+<div class="section" id="s12">
+  <div class="section-header">
+    <div class="section-num">12</div>
+    <h2>Lead Generation &amp; Forms</h2>
+  </div>
+  <div class="section-body">
+
+    <h3>Lead Magnets</h3>
+    <div class="card-grid">
+      <div class="card accent">
+        <div class="card-label">Lead Magnet 1 — High Priority</div>
+        <h4>Commercial Landscaping RFP Template</h4>
+        <p>A downloadable Word doc or PDF template for property managers to use when soliciting landscape bids. Landing page: /resources/commercial-landscaping-rfp-template/. Targets: property managers actively sourcing vendors = highest-intent commercial leads.</p>
+      </div>
+      <div class="card accent">
+        <div class="card-label">Lead Magnet 2</div>
+        <h4>Free Lawn Assessment Checklist</h4>
+        <p>A 12-point checklist for evaluating commercial property lawn health. Landing page: /resources/free-lawn-assessment/. Good for both residential and commercial. Entry point for lead nurture email sequence.</p>
+      </div>
+      <div class="card accent">
+        <div class="card-label">Lead Magnet 3 — Future</div>
+        <h4>Orlando Commercial Landscaping Cost Guide</h4>
+        <p>Gated PDF with detailed pricing ranges by property type and service. Landing page: /resources/commercial-landscaping-cost-guide/. Highest-intent commercial leads. Pair with the blog post #1 in content calendar.</p>
+      </div>
+    </div>
+
+    <h3>Email Nurture Sequences</h3>
+    <div class="tbl-wrap"><table>
+      <tr><th>Sequence</th><th>Trigger</th><th>Emails</th><th>Goal</th></tr>
+      <tr><td>Commercial Lead Nurture</td><td>Quote form submission (Commercial property type selected)</td><td>5 emails over 14 days. Email 1: immediate confirmation + what happens next. Email 2 (Day 2): commercial portfolio + case study. Email 3 (Day 5): FAQ about commercial contracts. Email 4 (Day 9): free property assessment offer. Email 5 (Day 14): last chance personal outreach.</td><td>Book property assessment</td></tr>
+      <tr><td>Residential Lead Nurture</td><td>Quote form (Residential selected)</td><td>3 emails over 7 days. More concise. Emphasis on pricing clarity and quick turnaround.</td><td>Phone call or scheduled visit</td></tr>
+      <tr><td>Lead Magnet Sequence</td><td>RFP template download</td><td>4 emails over 10 days. Deliver template → relevant tips → portfolio → soft CTA for assessment.</td><td>Commercial quote request</td></tr>
+    </table></div>
+  </div>
+</div>
+
+<!-- ═══ S13: ANALYTICS ════════════════════════════════════════════════════════ -->
+<div class="section" id="s13">
+  <div class="section-header">
+    <div class="section-num">13</div>
+    <h2>Analytics &amp; Tracking Setup</h2>
+  </div>
+  <div class="section-body">
+
+    <h3>Required Tools</h3>
+    <div class="card-grid">
+      <div class="card accent"><h4>Google Analytics 4</h4><p>Primary analytics platform. GA4 property configured with enhanced measurement. All conversion events set up before launch.</p></div>
+      <div class="card accent"><h4>Google Tag Manager</h4><p>All tracking deployed through GTM. Never hardcode GA4 or other tracking scripts directly. Makes future changes easy without developer involvement.</p></div>
+      <div class="card accent"><h4>Google Search Console</h4><p>Property verified. All sitemaps submitted. Core Web Vitals and Coverage reports monitored monthly.</p></div>
+      <div class="card accent"><h4>Google Business Profile Insights</h4><p>Track calls, directions, website clicks from GBP monthly. Benchmark against these numbers before and after GBP optimizations.</p></div>
+      <div class="card accent"><h4>Hotjar or Microsoft Clarity</h4><p>Heatmaps and session recordings on homepage, contact page, and top commercial pages. Free with Clarity. Shows exactly where users click and drop off.</p></div>
+      <div class="card accent"><h4>CallRail (Recommended)</h4><p>Call tracking with dynamic number insertion. Attribute phone calls to specific traffic sources (organic, paid, GBP). Essential for measuring real ROI on SEO.</p></div>
+    </div>
+
+    <h3>GA4 Conversion Events</h3>
+    <div class="tbl-wrap"><table>
+      <tr><th>Event Name</th><th>Trigger</th><th>Value</th></tr>
+      <tr><td>quote_form_submit</td><td>Form submission on /contact/ or any page inline form</td><td>$150 (commercial lead value)</td></tr>
+      <tr><td>phone_click</td><td>Click on any tel: link sitewide</td><td>$50</td></tr>
+      <tr><td>lead_magnet_download</td><td>RFP template or checklist download</td><td>$25</td></tr>
+      <tr><td>commercial_page_view</td><td>Any /commercial-landscaping/ page viewed</td><td>$5 (micro-conversion)</td></tr>
+      <tr><td>review_page_view</td><td>/reviews/ page view</td><td>$5</td></tr>
+      <tr><td>thank_you_page</td><td>/thank-you/ page view (form confirmation)</td><td>$200 (highest value conversion)</td></tr>
+    </table></div>
+
+    <h3>Monthly SEO Dashboard</h3>
+    <p>Track these metrics monthly in a simple Google Sheet or Looker Studio report:</p>
+    <div class="pill-list">
+      <div class="pill active">Organic sessions (total + by page group)</div>
+      <div class="pill active">Organic conversions (forms + calls)</div>
+      <div class="pill active">Top 10 ranking keywords (from GSC)</div>
+      <div class="pill active">GSC impressions for "commercial landscaping" terms</div>
+      <div class="pill active">GBP calls, directions, website clicks</div>
+      <div class="pill active">New pages indexed (from GSC Coverage)</div>
+      <div class="pill active">Core Web Vitals scores (monthly)</div>
+      <div class="pill active">Backlinks acquired (monthly new)</div>
+      <div class="pill active">AI Overview presence (manual monthly check — 10 queries)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ S14: ROADMAP ══════════════════════════════════════════════════════════ -->
+<div class="section" id="s14">
+  <div class="section-header">
+    <div class="section-num">14</div>
+    <h2>90-Day Implementation Roadmap</h2>
+  </div>
+  <div class="section-body">
+
+    <div class="timeline">
+
+      <div class="phase">
+        <div class="phase-num">0</div>
+        <div class="phase-content">
+          <div class="phase-title">Week 1 — GBP Quick Wins (Before Site Launch)</div>
+          <div class="phase-sub">Takes &lt;2 hours. Immediate search visibility impact. Do this NOW regardless of site rebuild timeline.<br>
+          ✅ Add "Onsite services" GBP attribute (currently missing — 6/10 competitors have it)<br>
+          ✅ Add "Lawn care service" as secondary GBP category (currently missing)<br>
+          ✅ Add all 12 services with optimized descriptions to GBP Services section (zero competitors have done this)<br>
+          ✅ Add photos (exterior shots of completed commercial jobs, crew in action)</div>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-num">1</div>
+        <div class="phase-content">
+          <div class="phase-title">Weeks 2–4 — Foundation Build</div>
+          <div class="phase-sub">Rebuild core pages. No new pSEO pages yet — foundation must be solid first.<br>
+          • Rebuild homepage with new copy, schema, and CRO layout<br>
+          • Rebuild /commercial-landscaping/ hub page (most important SEO page)<br>
+          • Build /about/ page (E-E-A-T signals + team + certifications)<br>
+          • Build /reviews/ page with schema (replaces /testimonials/)<br>
+          • Set up GA4 + GTM + GSC + submit sitemaps<br>
+          • Set up 301 redirects for old URLs<br>
+          • Implement technical SEO: canonical tags, robots.txt, meta descriptions on all existing pages</div>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-num">2</div>
+        <div class="phase-content">
+          <div class="phase-title">Weeks 5–8 — Service Pages + Property-Type Pages</div>
+          <div class="phase-sub">The pages that will drive the most qualified organic leads.<br>
+          • Build all 8 individual service pages (/services/lawn-care/, /services/irrigation-systems/, etc.)<br>
+          • Build all 7 commercial property-type pages (HOA, office parks, retail, apartments, medical, industrial, hospitality)<br>
+          • Add FAQPage schema to all new pages<br>
+          • First 6 blog posts published (from Q1 editorial calendar)<br>
+          • Update XML sitemap and submit to GSC<br>
+          • Set up Hotjar/Clarity heatmaps on homepage + commercial hub</div>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-num">3</div>
+        <div class="phase-content">
+          <div class="phase-title">Weeks 8–11 — Location Pages + Combo pSEO</div>
+          <div class="phase-sub">The first-mover advantage window. Build before any competitor catches on.<br>
+          • Build all 13 location pages (/locations/winter-park-fl/ etc.)<br>
+          • Build all 12 combo pSEO pages (property type × city combinations)<br>
+          • Build /locations/ hub page<br>
+          • Internal linking audit: connect all pSEO pages to hubs<br>
+          • Publish 6 more blog posts (Q2 calendar)<br>
+          • Launch RFP template lead magnet</div>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-num">4</div>
+        <div class="phase-content">
+          <div class="phase-title">Weeks 12+ — Ongoing Growth</div>
+          <div class="phase-sub">Compound the foundation.<br>
+          • Monthly blog posts (2/month minimum)<br>
+          • Quarterly content refresh on top-performing commercial pages<br>
+          • A/B test homepage hero headline (Option A vs B)<br>
+          • A/B test form CTA copy<br>
+          • Begin link building: local business citations, Houzz profile, Angi profile, local chamber<br>
+          • Monthly GSC review — identify new keyword opportunities from impressions data<br>
+          • Quarterly pSEO expansion: add 5–10 more combo pages based on search data</div>
+        </div>
+      </div>
+
+    </div>
+
+    <h3>Expected Results Timeline</h3>
+    <div class="tbl-wrap"><table>
+      <tr><th>Timeframe</th><th>Expected Outcomes</th></tr>
+      <tr><td>Week 1 (GBP)</td><td>GBP Services section live — first competitor to have this. Small impression bump within 2 weeks.</td></tr>
+      <tr><td>Month 1–2</td><td>Core pages indexed. Homepage + commercial hub begin ranking for long-tail branded queries. GSC impressions growing.</td></tr>
+      <tr><td>Month 2–3</td><td>Individual service pages begin ranking on page 2–3. Local map pack improvements from GBP + schema alignment.</td></tr>
+      <tr><td>Month 3–4</td><td>First combo pSEO pages reach page 1 (near-zero competition = fast ranking). "HOA landscaping Windermere FL" type queries.</td></tr>
+      <tr><td>Month 4–6</td><td>10–15 commercial keywords on page 1–2. Organic leads consistently arriving. Blog posts beginning to rank.</td></tr>
+      <tr><td>Month 6–12</td><td>20+ commercial keywords on page 1. Organic leads at 10–15+/month. AI Overview citations for 2–3 queries.</td></tr>
+    </table></div>
+  </div>
+</div>
+
+<!-- ═══ S15: DEVELOPER BRIEF ═════════════════════════════════════════════════ -->
+<div class="section" id="s15">
+  <div class="section-header">
+    <div class="section-num">15</div>
+    <h2>Developer Technical Brief</h2>
+  </div>
+  <div class="section-body">
+
+    <h3>Recommended Tech Stack</h3>
+    <div class="tbl-wrap"><table>
+      <tr><th>Layer</th><th>Recommended</th><th>Alternative</th><th>Rationale</th></tr>
+      <tr><td>CMS</td><td>WordPress + Elementor or Kadence</td><td>Webflow, Squarespace (avoid for pSEO)</td><td>WordPress gives full control of URL structure, schema, and custom post types needed for 80+ pages. Webflow pSEO limitations make it unsuitable for the combo page strategy.</td></tr>
+      <tr><td>Hosting</td><td>WP Engine or Kinsta (managed WordPress)</td><td>SiteGround (budget option)</td><td>Managed WordPress = server-level caching, CDN, and TTFB optimization built-in. Critical for Core Web Vitals targets.</td></tr>
+      <tr><td>CDN</td><td>Cloudflare (free tier works)</td><td>Bunny CDN</td><td>Cloudflare's edge network reduces TTFB dramatically for Florida-based visitors. Also provides DDoS protection and image optimization.</td></tr>
+      <tr><td>SEO Plugin</td><td>Rank Math Pro</td><td>Yoast SEO Premium</td><td>Rank Math has better schema generation, local SEO features, and free schema types vs Yoast. Also integrates with Google Search Console directly.</td></tr>
+      <tr><td>Page Builder</td><td>Kadence Blocks (FSE) or Elementor Pro</td><td>Bricks Builder</td><td>Kadence is lighter (better Core Web Vitals) than Elementor. If Elementor is preferred, use Elementor Pro with performance mode enabled.</td></tr>
+      <tr><td>Forms</td><td>Gravity Forms or WPForms</td><td>HubSpot Forms (if CRM integration needed)</td><td>Gravity Forms has the best conditional logic for the property-type routing needed. WPForms is lighter and sufficient if CRM integration isn't needed.</td></tr>
+      <tr><td>Image Optimization</td><td>Imagify or ShortPixel</td><td>EWWW</td><td>Auto-converts uploads to WebP. Critical for LCP scores. Must be configured to serve WebP by default.</td></tr>
+      <tr><td>Caching</td><td>WP Rocket</td><td>LiteSpeed Cache (if LiteSpeed server)</td><td>WP Rocket is the gold standard for WordPress performance. Handles CSS minification, JS defer, lazy loading, and database optimization.</td></tr>
+      <tr><td>Analytics</td><td>GA4 via GTM</td><td>Plausible (privacy-first alternative)</td><td>GTM gives maximum flexibility for event tracking without developer involvement for future changes.</td></tr>
+    </table></div>
+
+    <h3>Custom Post Types Required</h3>
+    <pre>
+// Register these custom post types in functions.php or a plugin:
+
+1. 'location_page'  → for /locations/[city]/ pages
+   - Fields: city_name, county, service_areas_nearby,
+     hero_image, city_description, notable_areas
+
+2. 'commercial_page' → for property-type pages
+   - Fields: property_type, target_persona,
+     pain_points, services_included
+
+3. 'project_portfolio' → for /gallery/ and case studies
+   - Fields: property_type, city, before_image,
+     after_image, services_performed, testimonial
+
+// These CPTs enable dynamic pSEO template rendering
+// and clean URL structures without plugin bloat</pre>
+
+    <h3>Critical Developer Notes</h3>
+    <div class="card-grid">
+      <div class="card critical">
+        <h4>Implement all 301 redirects on Day 1</h4>
+        <p>Before any SEO work. Lost redirect chains = lost link equity and 404 errors for anyone with old URLs.</p>
+      </div>
+      <div class="card critical">
+        <h4>No lazy loading on above-fold images</h4>
+        <p>Hero images must use <code>fetchpriority="high"</code> and NOT <code>loading="lazy"</code>. This is a common mistake that tanks LCP scores.</p>
+      </div>
+      <div class="card critical">
+        <h4>Self-hosted Google Fonts</h4>
+        <p>Do not load Google Fonts from fonts.googleapis.com. Download and host locally. External font loading adds 200–400ms TTFB penalty.</p>
+      </div>
+      <div class="card critical">
+        <h4>Trailing slash consistency</h4>
+        <p>Pick one convention (trailing slash recommended) and implement server-level 301 redirect for the opposite. Do not allow both versions to return 200.</p>
+      </div>
+      <div class="card warn">
+        <h4>Schema validation before launch</h4>
+        <p>Test all schema with Google Rich Results Test. Fix all errors before launch — broken schema is worse than no schema.</p>
+      </div>
+      <div class="card warn">
+        <h4>Mobile-first build</h4>
+        <p>60%+ of landscaping search traffic is mobile. Build and test mobile first. The sticky bottom CTA bar is a mobile-specific element that must be built intentionally.</p>
+      </div>
+    </div>
+
+    <h3>Pre-Launch Checklist</h3>
+    <div class="pill-list">
+      <div class="pill active">All 301 redirects live and verified</div>
+      <div class="pill active">canonical tags on every page</div>
+      <div class="pill active">Meta title + description on every page</div>
+      <div class="pill active">Schema validated with Rich Results Test on 5+ page types</div>
+      <div class="pill active">robots.txt reviewed (AI bots allowed)</div>
+      <div class="pill active">XML sitemap live + submitted to GSC</div>
+      <div class="pill active">GA4 + GTM firing on all pages</div>
+      <div class="pill active">All conversion events tested in GTM Preview</div>
+      <div class="pill active">PageSpeed Insights: 80+ on mobile, 90+ on desktop</div>
+      <div class="pill active">Core Web Vitals: LCP &lt;2.5s, CLS &lt;0.1, INP &lt;200ms</div>
+      <div class="pill active">HTTPS enforced, no mixed content warnings</div>
+      <div class="pill active">All internal links working (no 404s)</div>
+      <div class="pill active">Breadcrumbs on all non-homepage pages</div>
+      <div class="pill active">OG image tags on all pages (1200×630)</div>
+      <div class="pill active">favicon + apple-touch-icon set</div>
+      <div class="pill active">Phone numbers are click-to-call on mobile</div>
+      <div class="pill active">Forms tested end-to-end (submit → confirmation → email)</div>
+      <div class="pill active">Heatmap tool (Clarity) installed</div>
+      <div class="pill active">Google Business Profile URL updated to new site</div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- end wrapper -->
+
+<!-- FOOTER -->
+<div style="background: var(--black); color: var(--grey-400); text-align: center; padding: 32px; font-size: 12px; margin-top: 48px;">
+  <div style="color: var(--chartreuse); font-weight: 700; font-size: 14px; margin-bottom: 8px;">Prime Outdoor Experts LLC — Website Rebuild Plan</div>
+  <div>Confidential · Prepared March 2026 · Based on competitive research across 22 Orlando landscaping competitors</div>
+  <div style="margin-top: 8px; color: #555;">Research sources: Google Maps competitor analysis · GBP attributes audit · Commercial pSEO competitor landscape · Live site audit of primeoutdoorexperts.com</div>
+</div>
+
+</body>
+</html>
