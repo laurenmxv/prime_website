@@ -3,15 +3,15 @@
   "configurations": [
     {
       "name": "Static Site (Python)",
-      "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8000"],
-      "port": 8000
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["-c", "python3 -m http.server $PORT"],
+      "autoPort": true
     },
     {
       "name": "Static Site (npx serve)",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["serve", "-l", "3000"],
-      "port": 3000
+      "runtimeArgs": ["serve", "-l"],
+      "autoPort": true
     }
   ]
 }

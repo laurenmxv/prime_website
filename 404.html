@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Page Not Found | Prime Outdoor Experts</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--ink);
+      color: var(--text-on-dark);
+      font-family: var(--font);
+    }
+
+    .error-card {
+      text-align: center;
+      max-width: 520px;
+      padding: 3rem 2rem;
+    }
+
+    .error-code {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      line-height: 1.1;
+      margin: 0 0 1rem;
+    }
+
+    .error-code span {
+      color: var(--accent);
+    }
+
+    .error-message {
+      font-size: 1.125rem;
+      color: var(--text-on-dark-muted);
+      line-height: 1.6;
+      margin: 0 0 2.5rem;
+    }
+
+    .error-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+
+    .error-actions a {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.875rem 1.75rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.975rem;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--ink);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text-on-dark);
+      border: 1px solid var(--ink-border);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .error-phone {
+      color: var(--text-on-dark-faint);
+      font-size: 0.925rem;
+    }
+
+    .error-phone a {
+      color: var(--text-on-dark-muted);
+      text-decoration: none;
+    }
+
+    .error-phone a:hover {
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <div class="error-card">
+    <h1 class="error-code">404 <span>&mdash;</span> Page Not Found</h1>
+    <p class="error-message">The page you're looking for doesn't exist or has been moved.</p>
+    <div class="error-actions">
+      <a href="/" class="btn-primary">Back to Home</a>
+      <a href="/contact/" class="btn-outline">Contact Us</a>
+    </div>
+    <p class="error-phone">Or call us at <a href="tel:+14074434505">(407) 443-4505</a></p>
+  </div>
+</body>
+</html>

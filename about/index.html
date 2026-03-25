@@ -26,7 +26,7 @@
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "Organization",
+        "@type": ["LocalBusiness", "Organization"],
         "@id": "https://primeoutdoorexperts.com/#business",
         "name": "Prime Outdoor Experts LLC",
         "url": "https://primeoutdoorexperts.com",
@@ -81,6 +81,7 @@
 </head>
 
 <body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
 
 <!-- TOP BAR -->
 <div class="topbar">
@@ -135,7 +136,7 @@
   </nav>
 </header>
 
-<main>
+<main id="main-content">
 <!-- BREADCRUMBS -->
 <div style="background:var(--grey-100); border-bottom:1px solid var(--grey-200);">
   <div class="container">
@@ -495,6 +496,6 @@
   <a href="/contact/" class="sticky-quote">Get a Free Quote</a>
 </div>
 
-<script src="../js/main.js"></script>
+<script src="../js/main.js" defer></script>
 </body>
 </html>

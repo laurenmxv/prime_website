@@ -3,11 +3,6 @@
 
 User-agent: *
 Allow: /
-Disallow: /cart/
-Disallow: /checkout/
-Disallow: /wp-admin/
-Disallow: /wp-login.php
-Disallow: /?s=
 Disallow: /*?*utm_
 Disallow: /*?*ref=
 
