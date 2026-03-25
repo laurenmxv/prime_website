@@ -3,6 +3,25 @@
    Clean. Black + white + chartreuse.
    ============================================================================= */
 
+/* Skip to content — accessibility */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 16px;
+  z-index: 10000;
+  padding: 12px 24px;
+  background: var(--accent);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: 0 0 8px 8px;
+  text-decoration: none;
+  transition: top 200ms ease;
+}
+.skip-link:focus {
+  top: 0;
+}
+
 /* -----------------------------------------------------------------------------
    CUSTOM PROPERTIES
 ----------------------------------------------------------------------------- */
