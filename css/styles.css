@@ -593,9 +593,9 @@ p {
 }
 
 .nav-logo-mark {
-  width: 220px;
-  height: 52px;
-  background: url('../assets/logo-full-white.png') left center / contain no-repeat;
+  width: 280px;
+  height: 60px;
+  background: url('../assets/prime_trans_white.png') left center / contain no-repeat;
   border-radius: 0;
   flex-shrink: 0;
   font-size: 0;
