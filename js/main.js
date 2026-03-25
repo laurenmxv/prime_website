@@ -284,16 +284,35 @@
       });
 
       if (valid) {
-        // TODO: Connect to form backend (Gravity Forms, Netlify Forms, Formspree, etc.)
-        // For now, show a success message
-        quoteForm.innerHTML = `
-          <div style="text-align:center; padding: 48px 24px;">
-            <div style="font-size:48px; margin-bottom:16px;">✅</div>
-            <h3 style="margin-bottom:12px;">Request Received!</h3>
-            <p style="color:#5A5A5A;">Thank you — we'll be in touch within 2 business hours.<br>
-            For urgent inquiries, call <a href="tel:+14074434505" style="color:#A0C200; font-weight:700;">(407) 443-4505</a>.</p>
-          </div>
-        `;
+        const submitBtn = quoteForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = 'Sending…';
+
+        fetch(quoteForm.action, {
+          method: 'POST',
+          body: new FormData(quoteForm),
+          headers: { 'Accept': 'application/json' }
+        })
+        .then((response) => {
+          if (response.ok) {
+            quoteForm.innerHTML = `
+              <div style="text-align:center; padding: 48px 24px;">
+                <div style="font-size:48px; margin-bottom:16px;">✅</div>
+                <h3 style="margin-bottom:12px;">Request Received!</h3>
+                <p style="color:#5A5A5A;">Thank you — we'll be in touch within 2 business hours.<br>
+                For urgent inquiries, call <a href="tel:+14074434505" style="color:#A0C200; font-weight:700;">(407) 443-4505</a>.</p>
+              </div>
+            `;
+          } else {
+            throw new Error('Form submission failed');
+          }
+        })
+        .catch(() => {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalText;
+          alert('Something went wrong. Please call us at (407) 443-4505 or try again.');
+        });
       }
     });
 

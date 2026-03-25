@@ -84,6 +84,8 @@
     ]
   }
   </script>
+  <!-- Elfsight Google Reviews Widget -->
+  <script src="https://elfsightcdn.com/platform.js" async></script>
 </head>
 
 <body>
@@ -487,12 +489,16 @@
 
     </div>
 
-    <!-- TODO: Load more / pagination when real reviews are integrated from Google/Yelp API -->
+    <!-- ELFSIGHT LIVE GOOGLE REVIEWS WIDGET
+         Replace the div below with your Elfsight embed code once you have it.
+         Example: <div class="elfsight-app-XXXXXXXX" data-elfsight-app-lazy></div>
+    -->
+    <div id="elfsight-reviews" class="mt-7" style="min-height:200px;">
+      <div class="elfsight-app-af6986c5-0520-4793-8dc8-b8623085ddf8" data-elfsight-app-lazy></div>
+    </div>
+
     <div class="text-center mt-7">
-      <p style="color:var(--grey-400); font-size:14px; margin-bottom:var(--space-4);">
-        Showing 12 of 52 reviews. <!-- TODO: Implement pagination or "Load More" with real review data -->
-      </p>
-      <a href="#TODO-google-business-profile" class="btn btn-outline-dark" target="_blank" rel="noopener">
+      <a href="https://g.page/r/YOUR-GBP-REVIEW-LINK/review" class="btn btn-outline-dark" target="_blank" rel="noopener">
         Read All Reviews on Google →
       </a>
     </div>
