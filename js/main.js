@@ -57,9 +57,18 @@
   }
 
   /* --------------------------------------------------------------------------
-     NAV DROPDOWNS — keyboard accessibility
+     NAV DROPDOWNS — click, hover, and keyboard accessible
   -------------------------------------------------------------------------- */
   const navItems = document.querySelectorAll('.nav-item');
+
+  function closeAllDropdowns(except) {
+    navItems.forEach((item) => {
+      if (item === except) return;
+      item.classList.remove('dropdown-open');
+      const link = item.querySelector('.nav-link');
+      if (link) link.setAttribute('aria-expanded', 'false');
+    });
+  }
 
   navItems.forEach((item) => {
     const link = item.querySelector('.nav-link');
@@ -74,24 +83,49 @@
     link.setAttribute('aria-expanded', 'false');
 
     const open = () => {
+      item.classList.add('dropdown-open');
       link.setAttribute('aria-expanded', 'true');
     };
 
     const close = () => {
+      item.classList.remove('dropdown-open');
       link.setAttribute('aria-expanded', 'false');
     };
 
-    item.addEventListener('mouseenter', open);
+    const toggle = () => {
+      const isOpen = item.classList.contains('dropdown-open');
+      closeAllDropdowns();
+      if (!isOpen) open(); else close();
+    };
+
+    // Click to toggle (works on touch + desktop)
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      toggle();
+    });
+
+    // Hover open/close (desktop only — enhances click)
+    item.addEventListener('mouseenter', () => {
+      closeAllDropdowns(item);
+      open();
+    });
     item.addEventListener('mouseleave', close);
 
+    // Keyboard support
     link.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        const expanded = link.getAttribute('aria-expanded') === 'true';
-        expanded ? close() : open();
+        toggle();
       }
       if (e.key === 'Escape') close();
     });
+  });
+
+  // Close dropdowns when clicking outside
+  document.addEventListener('click', (e) => {
+    const insideNav = e.target.closest('.nav-item');
+    if (!insideNav) closeAllDropdowns();
   });
 
   /* --------------------------------------------------------------------------
