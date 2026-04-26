@@ -1,0 +1,816 @@
+@charset "UTF-8";
+/* =============================================================================
+   PRIME OUTDOOR EXPERTS — Botanical Premium
+   Cream + Deep Botanical Green + Chartreuse
+   Loaded after styles.css to override the dark-first design system.
+   ============================================================================= */
+
+/* -----------------------------------------------------------------------------
+   PALETTE TOKENS
+----------------------------------------------------------------------------- */
+:root {
+  /* New botanical palette */
+  --bp-cream:        #F5F1E8;
+  --bp-cream-soft:   #FAF7EE;
+  --bp-cream-deep:   #EFE9DC;
+  --bp-beige:        #EAE1D0;
+  --bp-tan:          #D9D2C0;
+  --bp-tan-soft:     #E8E1CF;
+  --bp-tan-line:     #C9C1AB;
+
+  --bp-green-deep:   #1D3A2B;   /* primary text, hero bg, footer bg */
+  --bp-green-canopy: #2C5340;   /* elevated dark surfaces */
+  --bp-green-leaf:   #3F7556;   /* eyebrows, accents on cream */
+  --bp-green-sage:   #6B8B7A;   /* muted text on cream */
+  --bp-green-mist:   #A8B9AD;   /* faint */
+
+  --bp-text:         #1D3A2B;
+  --bp-text-soft:    #4A5849;
+  --bp-text-faint:   #7A867D;
+
+  /* Override the inherited base tokens (cascade order: this file loads after styles.css) */
+  --ink:                 var(--bp-green-deep);
+  --ink-elevated:        var(--bp-green-canopy);
+  --ink-card:            var(--bp-green-canopy);
+  --ink-border:          rgba(245, 241, 232, 0.14);
+  --ink-muted:           var(--bp-green-deep);
+  --ink-glass:           rgba(29, 58, 43, 0.85);
+  --ink-border-subtle:   rgba(245, 241, 232, 0.06);
+
+  --surface:             var(--bp-cream);
+  --surface-alt:         var(--bp-beige);
+  --text-on-light:       var(--bp-text);
+  --text-on-light-muted: var(--bp-text-soft);
+
+  --text-on-dark:        var(--bp-cream);
+  --text-on-dark-muted:  rgba(245, 241, 232, 0.72);
+  --text-on-dark-faint:  rgba(245, 241, 232, 0.50);
+
+  /* Legacy aliases — re-mapped */
+  --black:        var(--bp-green-deep);
+  --black-soft:   var(--bp-green-canopy);
+  --black-warm:   var(--bp-green-deep);
+  --black-card:   var(--bp-green-canopy);
+  --black-border: rgba(245, 241, 232, 0.14);
+  --white:        #FFFFFF;
+  --cream:        var(--bp-cream);
+  --cream-dark:   var(--bp-beige);
+  --grey-50:      var(--bp-cream-soft);
+  --grey-100:     var(--bp-cream);
+  --grey-200:     var(--bp-tan);
+  --grey-300:     var(--bp-tan-soft);
+  --grey-400:     var(--bp-text-soft);
+  --grey-600:     var(--bp-text-soft);
+  --grey-800:     var(--bp-tan-line);
+
+  /* Accent — keep the chartreuse but tune for cream context */
+  /* --accent already defined in base; keep #b5e853. Boost contrast on cream. */
+  --accent-on-cream-bg: var(--bp-green-deep); /* text color on chartreuse buttons over cream */
+}
+
+/* -----------------------------------------------------------------------------
+   BASE
+----------------------------------------------------------------------------- */
+body {
+  background: var(--bp-cream);
+  color: var(--bp-text);
+}
+
+/* Subtle paper-grain feel on cream */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+  opacity: 0.6;
+}
+
+/* -----------------------------------------------------------------------------
+   TOPBAR — Deep green band above nav (anchors visual hierarchy)
+----------------------------------------------------------------------------- */
+.topbar {
+  background: var(--bp-green-deep);
+  border-bottom: 1px solid rgba(245, 241, 232, 0.08);
+}
+
+.topbar-phone { color: var(--bp-cream); }
+.topbar-phone:hover { color: var(--accent); }
+.topbar-rating { color: rgba(245, 241, 232, 0.72); }
+.topbar-rating .stars { color: var(--accent); }
+.topbar-area { color: rgba(245, 241, 232, 0.62); }
+
+/* -----------------------------------------------------------------------------
+   HEADER / NAV — Cream with deep green text
+----------------------------------------------------------------------------- */
+.site-header {
+  background: var(--bp-cream);
+  border-bottom: 1px solid var(--bp-tan);
+}
+
+.site-header.scrolled {
+  background: rgba(245, 241, 232, 0.92);
+  box-shadow: 0 1px 0 var(--bp-tan);
+  border-bottom-color: transparent;
+}
+
+.nav-link, .nav-link:visited {
+  color: var(--bp-text);
+}
+
+.nav-link:hover {
+  color: var(--bp-green-leaf);
+}
+
+.nav-logo-name { color: var(--bp-green-deep); }
+.nav-logo-tagline { color: var(--bp-green-sage); }
+
+/* Logo: dark mark on cream nav, white mark on dark green footer */
+.site-header .nav-logo-mark {
+  background: url('../assets/prime_transparent.png') left center / contain no-repeat;
+}
+
+.footer .nav-logo-mark {
+  background: url('../assets/prime_trans_white.png') left center / contain no-repeat;
+}
+
+.nav-dropdown {
+  background: var(--bp-cream);
+  border: 1px solid var(--bp-tan);
+  box-shadow: 0 24px 48px -12px rgba(29, 58, 43, 0.18);
+}
+
+.nav-dropdown a, .nav-dropdown a:visited {
+  color: var(--bp-text);
+}
+
+.nav-dropdown a:hover {
+  background: var(--bp-cream-deep);
+  color: var(--bp-green-deep);
+}
+
+.nav-dropdown-cta {
+  background: var(--bp-cream-deep);
+  color: var(--bp-green-deep);
+  border-top: 1px solid var(--bp-tan);
+}
+
+.hamburger span { background: var(--bp-text); }
+
+/* Mobile nav drawer */
+.mobile-nav {
+  background: var(--bp-cream);
+}
+
+.mobile-nav a, .mobile-nav a:visited {
+  color: var(--bp-text);
+}
+
+.mobile-nav-label {
+  color: var(--bp-green-leaf);
+}
+
+/* -----------------------------------------------------------------------------
+   HERO — Cream with botanical pattern + serif-led editorial type
+----------------------------------------------------------------------------- */
+.hero {
+  background: var(--bp-cream);
+  color: var(--bp-text);
+  border-bottom: 1px solid var(--bp-tan);
+  min-height: 88vh;
+}
+
+.hero-bg {
+  background: var(--bp-cream);
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* Hero photo (when present) — covers, low-opacity cream wash + bottom-fade gradient
+   so the cream-card text stays readable on top */
+.hero .hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 60%;
+  z-index: 0;
+}
+
+/* Cream wash + side fade so the centered text-card has a quiet backdrop */
+.hero-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(245, 241, 232, 0.92) 0%, rgba(245, 241, 232, 0.70) 35%, rgba(245, 241, 232, 0.55) 65%, rgba(245, 241, 232, 0.88) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* Hand-drawn botanical pattern — palm fronds + grass blades */
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 800' width='1200' height='800' fill='none'%3E%3Cg stroke='%231D3A2B' stroke-width='1.2' stroke-linecap='round' opacity='0.10'%3E%3C!-- Palm frond top right --%3E%3Cpath d='M 1080 120 Q 1100 80 1160 60'/%3E%3Cpath d='M 1080 120 Q 1110 110 1170 110'/%3E%3Cpath d='M 1080 120 Q 1110 140 1170 160'/%3E%3Cpath d='M 1080 120 Q 1100 160 1160 200'/%3E%3Cpath d='M 1080 120 Q 1075 80 1080 60'/%3E%3Cpath d='M 1080 120 Q 1060 105 1010 90'/%3E%3Cpath d='M 1080 120 Q 1060 130 1010 150'/%3E%3Cpath d='M 1080 120 Q 1070 160 1040 200'/%3E%3C!-- Grass cluster bottom left --%3E%3Cpath d='M 100 780 Q 105 720 95 660'/%3E%3Cpath d='M 120 780 Q 135 700 130 640'/%3E%3Cpath d='M 145 780 Q 155 720 165 660'/%3E%3Cpath d='M 170 780 Q 180 710 195 650'/%3E%3Cpath d='M 80 780 Q 70 730 55 680'/%3E%3C!-- Oak leaf mid right --%3E%3Cpath d='M 1100 450 q -20 -10 -40 -5 q -8 -18 -22 -22 q 0 -16 -16 -22 q -10 -8 -22 -2 q -8 -10 -22 -8 q -4 14 8 22 q -10 8 -2 22 q 14 4 22 -8 q 10 14 22 8 q 4 18 22 22 q 8 18 22 22 q 16 4 28 -29 z'/%3E%3C!-- Hibiscus mid bottom --%3E%3Ccircle cx='600' cy='720' r='14'/%3E%3Cpath d='M 600 706 q -22 -6 -32 -22 q 12 -18 32 -22 q 22 4 32 22 q -12 16 -32 22'/%3E%3Cpath d='M 600 720 q -32 -2 -36 22 q 22 14 36 22 q 18 -8 36 -22 q -8 -22 -36 -22'/%3E%3Cpath d='M 600 720 v -24'/%3E%3C/g%3E%3C/svg%3E");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+.hero h1 {
+  color: var(--bp-green-deep);
+}
+
+.hero h1 em {
+  color: var(--bp-green-leaf);
+}
+
+.hero-sub {
+  color: var(--bp-text-soft);
+}
+
+.hero .btn-primary {
+  background: var(--accent);
+  color: var(--bp-green-deep);
+  box-shadow: 0 8px 24px -8px rgba(181, 232, 83, 0.5);
+}
+
+.hero .btn-primary:hover {
+  background: var(--accent-hover);
+  color: var(--bp-green-deep);
+}
+
+.btn-outline-white {
+  border: 1.5px solid var(--bp-green-deep);
+  color: var(--bp-green-deep);
+  background: transparent;
+}
+
+.btn-outline-white:hover {
+  background: var(--bp-green-deep);
+  color: var(--bp-cream);
+}
+
+/* Trust chips on cream */
+.trust-chip {
+  background: rgba(29, 58, 43, 0.05);
+  border: 1px solid var(--bp-tan);
+  color: var(--bp-text);
+}
+
+/* -----------------------------------------------------------------------------
+   SECTIONS
+----------------------------------------------------------------------------- */
+.section {
+  background: var(--bp-cream);
+  color: var(--bp-text);
+}
+
+.section-grey {
+  background: linear-gradient(180deg, var(--bp-cream-deep) 0%, var(--bp-beige) 100%);
+}
+
+.section-grey::before { display: none; }
+
+.section-dark {
+  background: linear-gradient(180deg, var(--bp-green-deep) 0%, var(--bp-green-canopy) 50%, var(--bp-green-deep) 100%);
+  color: var(--bp-cream);
+}
+
+.section-dark p { color: rgba(245, 241, 232, 0.78); }
+.section-dark h1, .section-dark h2, .section-dark h3 { color: var(--bp-cream); }
+
+.section-eyebrow {
+  color: var(--bp-green-leaf);
+  font-family: var(--font);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.section-eyebrow::before {
+  background: var(--bp-green-leaf);
+}
+
+.section-dark .section-eyebrow {
+  color: var(--accent);
+}
+
+.section-dark .section-eyebrow::before {
+  background: var(--accent);
+}
+
+/* -----------------------------------------------------------------------------
+   PROOF BAR — Deep green band beneath hero
+----------------------------------------------------------------------------- */
+.proof-bar {
+  background: var(--bp-green-deep);
+  color: var(--bp-cream);
+  border-top: 1px solid rgba(245, 241, 232, 0.10);
+  border-bottom: 1px solid rgba(245, 241, 232, 0.10);
+}
+
+.proof-stat .num { color: var(--bp-cream); }
+.proof-stat .label { color: rgba(245, 241, 232, 0.7); }
+.proof-stat .num span { color: var(--accent); }
+
+/* -----------------------------------------------------------------------------
+   PATH CHOICE CARDS (on dark section)
+----------------------------------------------------------------------------- */
+.path-card {
+  background: rgba(245, 241, 232, 0.06);
+  border: 1px solid rgba(245, 241, 232, 0.14);
+  color: var(--bp-cream);
+}
+
+.path-card:hover {
+  background: rgba(245, 241, 232, 0.10);
+  border-color: var(--accent);
+}
+
+.path-card-title { color: var(--bp-cream); }
+.path-card-desc  { color: rgba(245, 241, 232, 0.74); }
+.path-card-cta   { color: var(--accent); }
+
+/* -----------------------------------------------------------------------------
+   SERVICE SPLIT
+----------------------------------------------------------------------------- */
+.split-card.commercial {
+  background: linear-gradient(160deg, var(--bp-green-deep) 0%, var(--bp-green-canopy) 100%);
+  color: var(--bp-cream);
+  border: 1px solid rgba(245, 241, 232, 0.10);
+}
+
+.split-card.residential {
+  background: var(--bp-cream-soft);
+  color: var(--bp-text);
+  border: 1px solid var(--bp-tan);
+  box-shadow: 0 8px 32px -8px rgba(29, 58, 43, 0.10);
+}
+
+.split-tag {
+  background: var(--accent);
+  color: var(--bp-green-deep);
+}
+
+.split-card.commercial .split-cta { color: var(--accent); }
+.split-card.residential .split-cta { color: var(--bp-green-leaf); }
+
+/* -----------------------------------------------------------------------------
+   DIFFERENTIATOR ITEMS (About page "How We Work")
+----------------------------------------------------------------------------- */
+.diff-item {
+  background: var(--bp-cream-soft);
+  border: 1px solid var(--bp-tan);
+  border-radius: var(--radius-lg);
+  padding: var(--space-7);
+}
+
+.diff-num {
+  color: var(--bp-green-leaf);
+  font-family: var(--font-display);
+  font-style: italic;
+  opacity: 0.5;
+}
+
+.diff-icon {
+  background: rgba(181, 232, 83, 0.18);
+  color: var(--bp-green-deep);
+}
+
+.diff-content h3 { color: var(--bp-green-deep); }
+.diff-content p  { color: var(--bp-text-soft); }
+
+/* -----------------------------------------------------------------------------
+   STAT HERO — The "15-20% property value" section
+----------------------------------------------------------------------------- */
+.stat-hero-section {
+  background: linear-gradient(180deg, var(--bp-cream) 0%, var(--bp-cream-deep) 100%);
+}
+
+.stat-hero-number {
+  color: var(--bp-green-deep);
+  font-family: var(--font-display);
+}
+
+.stat-hero-label { color: var(--bp-text); }
+.stat-hero-label em { color: var(--bp-green-leaf); }
+.stat-hero-source { color: var(--bp-text-faint); }
+
+/* -----------------------------------------------------------------------------
+   STAT GRID (About page numbers block)
+----------------------------------------------------------------------------- */
+.stat-item {
+  background: var(--bp-cream-soft);
+  border: 1px solid var(--bp-tan);
+}
+
+.stat-number { color: var(--bp-green-deep); }
+.stat-number .accent { color: var(--bp-green-leaf); }
+.stat-label  { color: var(--bp-text-soft); }
+
+/* -----------------------------------------------------------------------------
+   GALLERY ITEMS — placeholder treatment until photos arrive
+----------------------------------------------------------------------------- */
+.gallery-item {
+  border: 1px solid var(--bp-tan);
+  background: var(--bp-cream-soft);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.gallery-placeholder {
+  background: linear-gradient(180deg, var(--bp-cream-deep) 0%, var(--bp-beige) 100%);
+  color: var(--bp-green-leaf);
+  border: 1px dashed var(--bp-tan-line);
+}
+
+.gallery-placeholder .ph-icon {
+  background: rgba(181, 232, 83, 0.20);
+  color: var(--bp-green-deep);
+}
+
+.gallery-overlay {
+  background: linear-gradient(180deg, transparent 0%, rgba(29, 58, 43, 0.85) 100%);
+}
+
+.gallery-label {
+  color: var(--bp-cream);
+}
+
+/* -----------------------------------------------------------------------------
+   CITY PILLS (locations + service area lists)
+----------------------------------------------------------------------------- */
+.city-pill {
+  background: var(--bp-cream-soft);
+  border: 1px solid var(--bp-tan);
+  color: var(--bp-text);
+}
+
+.city-pill:hover {
+  background: var(--bp-green-deep);
+  color: var(--bp-cream);
+  border-color: var(--bp-green-deep);
+}
+
+/* -----------------------------------------------------------------------------
+   TESTIMONIAL CARDS
+----------------------------------------------------------------------------- */
+.testimonial-card {
+  background: var(--bp-cream-soft);
+  border: 1px solid var(--bp-tan);
+}
+
+.testimonial-quote { color: var(--bp-text); }
+.testimonial-name  { color: var(--bp-green-deep); }
+.testimonial-role  { color: var(--bp-text-soft); }
+.testimonial-stars { color: var(--accent); }
+
+.testimonial-avatar {
+  background: var(--bp-green-leaf);
+  color: var(--bp-cream);
+}
+
+/* -----------------------------------------------------------------------------
+   CERTIFICATION BADGES
+----------------------------------------------------------------------------- */
+.cert-badge {
+  background: var(--bp-cream-soft);
+  border: 1px solid var(--bp-tan);
+  color: var(--bp-text);
+}
+
+.cert-icon {
+  color: var(--bp-green-leaf);
+}
+
+/* -----------------------------------------------------------------------------
+   BUTTONS — General
+----------------------------------------------------------------------------- */
+.btn-primary {
+  background: var(--accent);
+  color: var(--bp-green-deep);
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+  color: var(--bp-green-deep);
+}
+
+.btn-outline-dark {
+  border: 1.5px solid var(--bp-green-deep);
+  color: var(--bp-green-deep);
+  background: transparent;
+}
+
+.btn-outline-dark:hover {
+  background: var(--bp-green-deep);
+  color: var(--bp-cream);
+}
+
+/* -----------------------------------------------------------------------------
+   FORMS — Contact form on cream
+----------------------------------------------------------------------------- */
+.form-card {
+  background: var(--bp-cream-soft);
+  border: 1px solid var(--bp-tan);
+}
+
+.form-input, .form-select, .form-textarea {
+  background: #FFFFFF;
+  border: 1px solid var(--bp-tan);
+  color: var(--bp-text);
+}
+
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: var(--bp-green-leaf);
+  outline: 2px solid rgba(63, 117, 86, 0.18);
+  outline-offset: 0;
+}
+
+.form-label {
+  color: var(--bp-text);
+}
+
+.form-helper {
+  color: var(--bp-text-soft);
+}
+
+/* -----------------------------------------------------------------------------
+   BREADCRUMBS
+----------------------------------------------------------------------------- */
+.breadcrumbs {
+  color: var(--bp-text-soft);
+}
+
+.breadcrumbs a, .breadcrumbs a:visited {
+  color: var(--bp-green-leaf);
+}
+
+.breadcrumbs .separator {
+  color: var(--bp-tan-line);
+}
+
+.breadcrumbs .current {
+  color: var(--bp-text);
+}
+
+/* -----------------------------------------------------------------------------
+   CTA BAND
+----------------------------------------------------------------------------- */
+.cta-band {
+  background: linear-gradient(180deg, var(--bp-green-deep) 0%, var(--bp-green-canopy) 100%);
+  color: var(--bp-cream);
+}
+
+.cta-band h2 { color: var(--bp-cream); }
+.cta-band p  { color: rgba(245, 241, 232, 0.82); }
+.cta-band-phone { color: var(--accent); }
+
+/* -----------------------------------------------------------------------------
+   FOOTER
+----------------------------------------------------------------------------- */
+.footer {
+  background: var(--bp-green-deep);
+  color: var(--bp-cream);
+  border-top: 1px solid rgba(245, 241, 232, 0.06);
+}
+
+.footer-brand-desc { color: rgba(245, 241, 232, 0.72); }
+
+.footer-col h5 {
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.footer-col ul a, .footer-col ul a:visited {
+  color: rgba(245, 241, 232, 0.78);
+}
+
+.footer-col ul a:hover {
+  color: var(--accent);
+}
+
+.footer-phone { color: var(--bp-cream); }
+.footer-phone:hover { color: var(--accent); }
+.footer-email { color: rgba(245, 241, 232, 0.78); }
+
+.social-link {
+  background: rgba(245, 241, 232, 0.08);
+  color: var(--bp-cream);
+  border: 1px solid rgba(245, 241, 232, 0.12);
+}
+
+.social-link:hover {
+  background: var(--accent);
+  color: var(--bp-green-deep);
+  border-color: var(--accent);
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(245, 241, 232, 0.10);
+  color: rgba(245, 241, 232, 0.55);
+}
+
+.footer-bottom a { color: rgba(245, 241, 232, 0.72); }
+.footer-bottom a:hover { color: var(--accent); }
+
+/* -----------------------------------------------------------------------------
+   MOBILE STICKY BAR
+----------------------------------------------------------------------------- */
+.mobile-sticky-bar {
+  background: var(--bp-green-deep);
+  border-top: 1px solid rgba(245, 241, 232, 0.10);
+}
+
+.sticky-call {
+  background: transparent;
+  color: var(--bp-cream);
+  border: 1px solid rgba(245, 241, 232, 0.20);
+}
+
+.sticky-quote {
+  background: var(--accent);
+  color: var(--bp-green-deep);
+}
+
+/* -----------------------------------------------------------------------------
+   BLOG CARDS
+----------------------------------------------------------------------------- */
+.blog-card {
+  background: var(--bp-cream-soft);
+  border: 1px solid var(--bp-tan);
+}
+
+.blog-card h3, .blog-card h4 { color: var(--bp-green-deep); }
+.blog-card p { color: var(--bp-text-soft); }
+.blog-card-meta { color: var(--bp-text-faint); }
+.blog-card-readmore { color: var(--bp-green-leaf); }
+
+/* -----------------------------------------------------------------------------
+   FAQ ACCORDION
+----------------------------------------------------------------------------- */
+.faq-item {
+  background: var(--bp-cream-soft);
+  border: 1px solid var(--bp-tan);
+}
+
+.faq-question {
+  color: var(--bp-green-deep);
+}
+
+.faq-answer {
+  color: var(--bp-text-soft);
+}
+
+/* -----------------------------------------------------------------------------
+   ICON COLORS — fix existing icons that assumed dark-on-light
+----------------------------------------------------------------------------- */
+.icon-svg { color: currentColor; }
+
+/* In sections where text is now deep green, default icon stroke matches */
+
+/* -----------------------------------------------------------------------------
+   ENSURE CONTENT LAYERS ABOVE BODY GRAIN
+----------------------------------------------------------------------------- */
+header, main, footer, .topbar, .mobile-sticky-bar { position: relative; z-index: 1; }
+
+/* =============================================================================
+   PATCH PASS — Phase A visual fixes
+   ============================================================================= */
+
+/* Hero badge — readable green-on-leaf-tint instead of chartreuse-on-tint
+   (used as eyebrow on every interior page) */
+.hero-badge {
+  background: rgba(63, 117, 86, 0.10);
+  border: 1px solid rgba(63, 117, 86, 0.30);
+  color: var(--bp-green-leaf);
+}
+
+.hero-badge .icon-svg {
+  color: var(--bp-green-leaf);
+}
+
+/* Card icons — visible on cream surfaces */
+.card-icon,
+.diff-icon,
+.contact-icon,
+.cert-icon {
+  color: var(--bp-green-deep);
+}
+
+.card-icon .icon-svg,
+.diff-icon .icon-svg,
+.contact-icon .icon-svg,
+.cert-icon .icon-svg {
+  color: var(--bp-green-deep);
+}
+
+/* Outline button on dark sections — must read as cream, not deep green */
+.section-dark .btn-outline-white,
+.hero.section-dark .btn-outline-white,
+.cta-band .btn-outline-white,
+.proof-bar .btn-outline-white,
+.footer .btn-outline-white {
+  border-color: var(--bp-cream);
+  color: var(--bp-cream);
+  background: transparent;
+}
+
+.section-dark .btn-outline-white:hover,
+.hero.section-dark .btn-outline-white:hover,
+.cta-band .btn-outline-white:hover,
+.proof-bar .btn-outline-white:hover,
+.footer .btn-outline-white:hover {
+  background: var(--bp-cream);
+  color: var(--bp-green-deep);
+}
+
+/* Commercial split-card bullets — cream-muted, not dark olive */
+.split-card.commercial p,
+.split-card.commercial ul li {
+  color: rgba(245, 241, 232, 0.78) !important;
+}
+
+.split-card.commercial h3 {
+  color: var(--bp-cream) !important;
+}
+
+/* Path-card on dark — tighten readability */
+.path-card-desc { color: rgba(245, 241, 232, 0.78); }
+
+/* Homepage Service Categories grid — placeholder labels visible on cream */
+.gallery-placeholder span:not(.ph-icon) {
+  color: var(--bp-text);
+}
+
+/* Inline #fff text inside gallery placeholders — neutralize */
+.gallery-placeholder span[style*="color:#fff"],
+.gallery-placeholder span[style*="color: #fff"] {
+  color: var(--bp-text) !important;
+}
+
+/* Inline #BDBDBD light-grey labels (gallery placeholder meta) — use faint text */
+.gallery-placeholder span[style*="#BDBDBD"],
+.gallery-placeholder span[style*="#bdbdbd"] {
+  color: var(--bp-text-faint) !important;
+}
+
+/* Property-card "Not Sure?" dashed card on dark — readable cream + cream border */
+.section-dark .property-card[style*="dashed"] {
+  border-color: rgba(245, 241, 232, 0.20) !important;
+}
+
+.section-dark .property-card p[style*="grey-400"],
+.section-dark .property-card p[style*="grey-600"],
+.section-dark .property-card p[style*="grey-300"] {
+  color: rgba(245, 241, 232, 0.72) !important;
+}
+
+/* Inline grey-400/600 paragraphs inside dark sections — force cream-muted */
+.section-dark p[style*="grey-400"],
+.section-dark p[style*="grey-600"] {
+  color: rgba(245, 241, 232, 0.72) !important;
+}
+
+/* Inline #3A5500 dark-olive in chartreuse-tint callouts — flip to deep green */
+[style*="#3A5500"],
+[style*="#3a5500"] {
+  color: var(--bp-green-deep) !important;
+}
+
+/* Property-card icon backgrounds — readable green tint instead of opacity-noise */
+.property-card .card-icon {
+  background: rgba(181, 232, 83, 0.18);
+  color: var(--bp-green-deep);
+}
+
+/* Service-split residential card body — confirm readable on cream */
+.split-card.residential h3 { color: var(--bp-green-deep); }
+.split-card.residential p,
+.split-card.residential ul li { color: var(--bp-text-soft); }
+
+/* Trust chip on dark hero (commercial-page heroes that are dark) */
+.section-dark .trust-chip {
+  background: rgba(245, 241, 232, 0.06);
+  border-color: rgba(245, 241, 232, 0.16);
+  color: var(--bp-cream);
+}
+
+/* Skip link — preserve chartreuse on cream with deep green text */
+.skip-link {
+  background: var(--accent);
+  color: var(--bp-green-deep);
+}

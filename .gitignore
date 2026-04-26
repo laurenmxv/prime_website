@@ -1,3 +1,43 @@
+# Original .gitignore entries
 drive-download-*
 *.zip
 .DS_Store
+
+# Dependencies
+node_modules/
+package-lock.json
+
+# Environment / secrets — NEVER commit
+.env
+.env.local
+.env.*.local
+.vercel
+
+# Original photo source (large; optimized variants commit instead)
+assets/photos/raw/
+
+# OS
+.AppleDouble
+.LSOverride
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Internal docs (noindex'd, but don't commit)
+schema-audit-report.html
+prime-outdoor-experts-website-rebuild-plan.html
+seo-geo-optimizer.md
+outputs/
+
+# Runtime
+*.log
+*.pid
+.cache/
+
+# Build artifacts
+dist/
+.tmp/

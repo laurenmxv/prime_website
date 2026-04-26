@@ -19,6 +19,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/botanical-premium.css">
 
   <!-- Schema — ContactPage + LocalBusiness -->
   <script type="application/ld+json">
@@ -126,9 +127,9 @@
     <a href="tel:+14074434505" class="topbar-phone"><svg class="icon-svg" aria-hidden="true" width="16" height="16"><use href="../assets/icons.svg#icon-phone"></use></svg> (407) 443-4505</a>
     <div class="topbar-rating">
       <span class="stars">★★★★★</span>
-      <span>4.9 · 52 Google Reviews</span>
+      <span>5.0 · 28 Google Reviews</span>
     </div>
-    <div class="topbar-area">Serving Orange, Seminole, Osceola, Lake &amp; Polk Counties</div>
+    <div class="topbar-area">Serving Orange &amp; Seminole Counties</div>
   </div>
 </div>
 
@@ -218,7 +219,7 @@
             Fill out the form and we'll be in touch within 2 business hours with next steps.
           </p>
 
-          <form class="quote-form" id="quote-form" action="https://formspree.io/f/mpqozzjn" method="POST" novalidate aria-label="Quote request form">
+          <form class="quote-form" id="quote-form" action="/api/quote" method="POST" novalidate aria-label="Quote request form">
 
             <div class="form-row">
               <div class="form-group">
@@ -238,7 +239,7 @@
               </div>
               <div class="form-group">
                 <label class="form-label" for="phone">Phone Number <span class="required">*</span></label>
-                <input class="form-input" type="tel" id="phone" name="phone" placeholder="(407) 555-0100" required autocomplete="tel">
+                <input class="form-input" type="tel" id="phone" name="phone" placeholder="Your phone number" required autocomplete="tel">
               </div>
             </div>
 
@@ -330,18 +331,6 @@
               <div class="contact-info-label">Email</div>
               <div class="contact-info-value">
                 <a href="mailto:info@primeoutdoorexperts.com">info@primeoutdoorexperts.com</a>
-                <!-- TODO: Update with real email address -->
-              </div>
-            </div>
-          </div>
-
-          <div class="contact-info-card">
-            <div class="contact-icon"><svg class="icon-svg" aria-hidden="true" width="24" height="24"><use href="../assets/icons.svg#icon-pin"></use></svg></div>
-            <div>
-              <div class="contact-info-label">Office</div>
-              <div class="contact-info-value">
-                123 Commerce Way<br>Lake Mary, FL 32771
-                <!-- TODO: Replace with real address -->
               </div>
             </div>
           </div>
@@ -351,7 +340,7 @@
             <div>
               <div class="contact-info-label">Service Area</div>
               <div class="contact-info-value" style="font-size:14px;">
-                Orange · Seminole · Osceola · Lake · Polk Counties
+                Orange &amp; Seminole Counties
               </div>
             </div>
           </div>
@@ -370,27 +359,23 @@
           </table>
           <p style="font-size:12px; color:var(--grey-400); margin-top:var(--space-3);">
             * Emergency service available for active commercial contract clients.
-            <!-- TODO: Confirm if emergency service is offered -->
           </p>
         </div>
 
-        <!-- Map -->
-        <div class="map-placeholder">
-          <svg class="icon-svg" aria-hidden="true" width="32" height="32" style="color:var(--grey-400);"><use href="../assets/icons.svg#icon-pin"></use></svg>
-          <span style="font-weight:600;">Lake Mary, FL Service Base</span>
-          <span>TODO: Embed Google Map here</span>
-          <!-- TODO: Replace with actual Google Maps embed:
-               <iframe src="https://www.google.com/maps/embed?pb=..." width="100%" height="240"
-               style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-          -->
-        </div>
+        <!-- Service Area Map -->
+        <iframe
+          title="Prime Outdoor Experts Service Area — Orange &amp; Seminole Counties, FL"
+          src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d217856.9!2d-81.42!3d28.65!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1700000000000"
+          width="100%" height="240"
+          style="border:0; border-radius:var(--radius); margin-top:var(--space-5);"
+          allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 
         <!-- Trust signals -->
         <div style="margin-top:var(--space-5);">
           <div style="display:flex; flex-wrap:wrap; gap:var(--space-2);">
             <div style="font-size:12px; padding:6px 12px; background:var(--grey-100); border:1px solid var(--grey-200); border-radius:20px; color:var(--grey-600); display:inline-flex; align-items:center; gap:6px;"><svg class="icon-svg icon-fill" aria-hidden="true" width="14" height="14" style="flex-shrink:0; color:var(--accent-hover);"><use href="../assets/icons.svg#icon-check-filled"></use></svg>Licensed &amp; Insured</div>
-            <div style="font-size:12px; padding:6px 12px; background:var(--grey-100); border:1px solid var(--grey-200); border-radius:20px; color:var(--grey-600); display:inline-flex; align-items:center; gap:6px;"><svg class="icon-svg icon-fill" aria-hidden="true" width="14" height="14" style="flex-shrink:0; color:var(--chartreuse-dark);"><use href="../assets/icons.svg#icon-star"></use></svg>4.9 Google Rating</div>
-            <div style="font-size:12px; padding:6px 12px; background:var(--grey-100); border:1px solid var(--grey-200); border-radius:20px; color:var(--grey-600); display:inline-flex; align-items:center; gap:6px;"><svg class="icon-svg" aria-hidden="true" width="14" height="14" style="flex-shrink:0;"><use href="../assets/icons.svg#icon-building"></use></svg>200+ Properties</div>
+            <div style="font-size:12px; padding:6px 12px; background:var(--grey-100); border:1px solid var(--grey-200); border-radius:20px; color:var(--grey-600); display:inline-flex; align-items:center; gap:6px;"><svg class="icon-svg icon-fill" aria-hidden="true" width="14" height="14" style="flex-shrink:0; color:var(--chartreuse-dark);"><use href="../assets/icons.svg#icon-star"></use></svg>5.0 Google Rating</div>
+            <div style="font-size:12px; padding:6px 12px; background:var(--grey-100); border:1px solid var(--grey-200); border-radius:20px; color:var(--grey-600); display:inline-flex; align-items:center; gap:6px;"><svg class="icon-svg" aria-hidden="true" width="14" height="14" style="flex-shrink:0;"><use href="../assets/icons.svg#icon-building"></use></svg>30+ Properties</div>
             <div style="font-size:12px; padding:6px 12px; background:var(--grey-100); border:1px solid var(--grey-200); border-radius:20px; color:var(--grey-600); display:inline-flex; align-items:center; gap:6px;"><svg class="icon-svg" aria-hidden="true" width="14" height="14" style="flex-shrink:0;"><use href="../assets/icons.svg#icon-map"></use></svg>5-County Coverage</div>
           </div>
         </div>
@@ -449,13 +434,13 @@
             <span class="nav-logo-tagline">Orlando, FL</span>
           </div>
         </a>
-        <p class="footer-brand-desc">Professional commercial and residential landscaping across Central Florida since 2015.</p>
+        <p class="footer-brand-desc">Professional commercial and residential landscaping across Central Florida since 2025.</p>
         <a href="tel:+14074434505" class="footer-phone"><svg class="icon-svg" aria-hidden="true" width="18" height="18"><use href="../assets/icons.svg#icon-phone"></use></svg> (407) 443-4505</a>
         <a href="mailto:info@primeoutdoorexperts.com" class="footer-email">info@primeoutdoorexperts.com</a>
         <div class="footer-socials">
-          <a href="#TODO-facebook" class="social-link" aria-label="Facebook">f</a>
-          <a href="#TODO-instagram" class="social-link" aria-label="Instagram">ig</a>
-          <a href="#TODO-google-business-profile" class="social-link" aria-label="Google Business">G</a>
+          <a href="https://www.facebook.com/profile.php?id=61579258783372" class="social-link" aria-label="Facebook">f</a>
+          <a href="https://www.instagram.com/primeoutdoorexperts/" class="social-link" aria-label="Instagram">ig</a>
+          <a href="https://share.google/nlQ9sk1cYwFJAGqls" class="social-link" aria-label="Google Business">G</a>
         </div>
       </div>
       <div class="footer-col">
@@ -491,9 +476,8 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <div>© 2026 Prime Outdoor Experts LLC · Lake Mary, FL 32771</div>
+      <div>© 2026 Prime Outdoor Experts LLC · Lake Mary, FL</div>
       <div style="display:flex; gap:16px; flex-wrap:wrap;">
-        <span>License #TODO-license-number</span>
         <a href="/sitemap.xml">Sitemap</a>
         <a href="/privacy-policy/">Privacy Policy</a>
         <a href="/terms-of-service/">Terms of Service</a>

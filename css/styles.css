@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* =============================================================================
    PRIME OUTDOOR EXPERTS — Design System
    Clean. Black + white + chartreuse.
@@ -495,7 +496,7 @@ p {
 
 /* Arrow icon in buttons */
 .btn-arrow::after {
-  content: '→';
+  content: '\2192  ';
   font-size: 16px;
   transition: transform var(--duration) var(--ease);
 }

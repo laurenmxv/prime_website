@@ -5,6 +5,10 @@ User-agent: *
 Allow: /
 Disallow: /*?*utm_
 Disallow: /*?*ref=
+Disallow: /schema-audit-report.html
+Disallow: /prime-outdoor-experts-website-rebuild-plan.html
+Disallow: /seo-geo-optimizer.md
+Disallow: /outputs/
 
 Sitemap: https://primeoutdoorexperts.com/sitemap.xml
 

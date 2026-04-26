@@ -1,0 +1,16 @@
+{
+  "name": "prime-outdoor-experts",
+  "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Prime Outdoor Experts — Orlando landscaping company website",
+  "scripts": {
+    "optimize-photos": "node scripts/optimize-photos.mjs",
+    "fetch-reviews": "node scripts/fetch-reviews.mjs",
+    "gen-sitemap": "node scripts/gen-sitemap.mjs",
+    "build": "npm run optimize-photos && npm run gen-sitemap"
+  },
+  "devDependencies": {
+    "sharp": "^0.33.5"
+  }
+}
