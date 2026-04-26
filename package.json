@@ -5,8 +5,7 @@
   "version": "1.0.0",
   "description": "Prime Outdoor Experts — Orlando landscaping company website",
   "scripts": {
-    "optimize-photos": "node scripts/optimize-photos.mjs",
-    "build": "echo 'Static site — no build step required. Vercel will serve files directly.'"
+    "optimize-photos": "node scripts/optimize-photos.mjs"
   },
   "devDependencies": {
     "sharp": "^0.33.5",
