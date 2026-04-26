@@ -6,11 +6,10 @@
   "description": "Prime Outdoor Experts — Orlando landscaping company website",
   "scripts": {
     "optimize-photos": "node scripts/optimize-photos.mjs",
-    "fetch-reviews": "node scripts/fetch-reviews.mjs",
-    "gen-sitemap": "node scripts/gen-sitemap.mjs",
-    "build": "npm run optimize-photos && npm run gen-sitemap"
+    "build": "echo 'Static site — no build step required. Vercel will serve files directly.'"
   },
   "devDependencies": {
-    "sharp": "^0.33.5"
+    "sharp": "^0.33.5",
+    "vercel": "^52.0.0"
   }
 }
