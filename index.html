@@ -29,8 +29,8 @@
   <!-- Preconnect for Performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Preload LCP hero image (editorial collage primary photo) -->
-  <link rel="preload" as="image" href="/assets/photos/optimized/img-5691-1200.avif" type="image/avif" fetchpriority="high">
+  <!-- Preload LCP hero image (cinematic carousel slide 1) -->
+  <link rel="preload" as="image" href="/assets/photos/optimized/hero-estate-palms-driveway-1920.avif" type="image/avif" imagesrcset="/assets/photos/optimized/hero-estate-palms-driveway-1280.avif 1280w, /assets/photos/optimized/hero-estate-palms-driveway-1920.avif 1920w, /assets/photos/optimized/hero-estate-palms-driveway-2880.avif 2880w" imagesizes="100vw" fetchpriority="high">
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Inter+Tight:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <!-- Styles -->
@@ -392,115 +392,181 @@
 <!-- ============================================================
      HERO
 ============================================================ -->
-<section class="hero hero-editorial" aria-label="Hero" data-hero-editorial>
+<section class="hero hero-cinematic" aria-label="Hero" data-hero-cinematic>
 
-  <!-- Atmospheric backdrop: gradient mesh + grain -->
-  <div class="hero-atmosphere" aria-hidden="true">
-    <div class="hero-mesh"></div>
-    <div class="hero-grain"></div>
-    <div class="hero-mark-watermark" aria-hidden="true"></div>
+  <!-- ====================================================================
+       CINEMATIC CAROUSEL — full-bleed photo rotation with Ken Burns + crossfade
+  ==================================================================== -->
+  <div class="hero-stage" aria-hidden="true">
+
+    <!-- SLIDE 1 — Mediterranean estate, palms, brick driveway (LCP) -->
+    <figure class="hero-slide is-active" data-slide="0">
+      <picture>
+        <source type="image/avif" srcset="/assets/photos/optimized/hero-estate-palms-driveway-1280.avif 1280w, /assets/photos/optimized/hero-estate-palms-driveway-1920.avif 1920w, /assets/photos/optimized/hero-estate-palms-driveway-2880.avif 2880w" sizes="100vw">
+        <source type="image/webp" srcset="/assets/photos/optimized/hero-estate-palms-driveway-1280.webp 1280w, /assets/photos/optimized/hero-estate-palms-driveway-1920.webp 1920w, /assets/photos/optimized/hero-estate-palms-driveway-2880.webp 2880w" sizes="100vw">
+        <img src="/assets/photos/optimized/hero-estate-palms-driveway-1920.jpg" srcset="/assets/photos/optimized/hero-estate-palms-driveway-1280.jpg 1280w, /assets/photos/optimized/hero-estate-palms-driveway-1920.jpg 1920w, /assets/photos/optimized/hero-estate-palms-driveway-2880.jpg 2880w" sizes="100vw" alt="Mediterranean estate with mature palms and brick paver driveway in Winter Park, FL" width="2880" height="2160" loading="eager" decoding="async" fetchpriority="high">
+      </picture>
+      <span class="slide-caption" aria-hidden="true">
+        <span class="cap-num">01</span>
+        <span class="cap-label">Estate</span>
+        <span class="cap-place">Winter Park, FL</span>
+      </span>
+    </figure>
+
+    <!-- SLIDE 2 — Topiary garden -->
+    <figure class="hero-slide" data-slide="1">
+      <picture>
+        <source type="image/avif" srcset="/assets/photos/optimized/hero-topiary-garden-1280.avif 1280w, /assets/photos/optimized/hero-topiary-garden-1920.avif 1920w, /assets/photos/optimized/hero-topiary-garden-2880.avif 2880w" sizes="100vw">
+        <source type="image/webp" srcset="/assets/photos/optimized/hero-topiary-garden-1280.webp 1280w, /assets/photos/optimized/hero-topiary-garden-1920.webp 1920w, /assets/photos/optimized/hero-topiary-garden-2880.webp 2880w" sizes="100vw">
+        <img src="/assets/photos/optimized/hero-topiary-garden-1920.jpg" srcset="/assets/photos/optimized/hero-topiary-garden-1280.jpg 1280w, /assets/photos/optimized/hero-topiary-garden-1920.jpg 1920w, /assets/photos/optimized/hero-topiary-garden-2880.jpg 2880w" sizes="100vw" alt="Hand-shaped topiary garden with sculpted shrubs and stone borders" width="2880" height="2160" loading="lazy" decoding="async">
+      </picture>
+      <span class="slide-caption" aria-hidden="true">
+        <span class="cap-num">02</span>
+        <span class="cap-label">Topiary</span>
+        <span class="cap-place">Lake Mary, FL</span>
+      </span>
+    </figure>
+
+    <!-- SLIDE 3 — Pool palm grove -->
+    <figure class="hero-slide" data-slide="2">
+      <picture>
+        <source type="image/avif" srcset="/assets/photos/optimized/hero-pool-palm-grove-1280.avif 1280w, /assets/photos/optimized/hero-pool-palm-grove-1920.avif 1920w, /assets/photos/optimized/hero-pool-palm-grove-2880.avif 2880w" sizes="100vw">
+        <source type="image/webp" srcset="/assets/photos/optimized/hero-pool-palm-grove-1280.webp 1280w, /assets/photos/optimized/hero-pool-palm-grove-1920.webp 1920w, /assets/photos/optimized/hero-pool-palm-grove-2880.webp 2880w" sizes="100vw">
+        <img src="/assets/photos/optimized/hero-pool-palm-grove-1920.jpg" srcset="/assets/photos/optimized/hero-pool-palm-grove-1280.jpg 1280w, /assets/photos/optimized/hero-pool-palm-grove-1920.jpg 1920w, /assets/photos/optimized/hero-pool-palm-grove-2880.jpg 2880w" sizes="100vw" alt="Mature areca palm grove framing a pool deck in Central Florida" width="2880" height="2160" loading="lazy" decoding="async">
+      </picture>
+      <span class="slide-caption" aria-hidden="true">
+        <span class="cap-num">03</span>
+        <span class="cap-label">Tropical</span>
+        <span class="cap-place">Windermere, FL</span>
+      </span>
+    </figure>
+
+    <!-- SLIDE 4 — Mediterranean home with manicured shrubs -->
+    <figure class="hero-slide" data-slide="3">
+      <picture>
+        <source type="image/avif" srcset="/assets/photos/optimized/hero-mediterranean-shrubs-1280.avif 1280w, /assets/photos/optimized/hero-mediterranean-shrubs-1920.avif 1920w, /assets/photos/optimized/hero-mediterranean-shrubs-2880.avif 2880w" sizes="100vw">
+        <source type="image/webp" srcset="/assets/photos/optimized/hero-mediterranean-shrubs-1280.webp 1280w, /assets/photos/optimized/hero-mediterranean-shrubs-1920.webp 1920w, /assets/photos/optimized/hero-mediterranean-shrubs-2880.webp 2880w" sizes="100vw">
+        <img src="/assets/photos/optimized/hero-mediterranean-shrubs-1920.jpg" srcset="/assets/photos/optimized/hero-mediterranean-shrubs-1280.jpg 1280w, /assets/photos/optimized/hero-mediterranean-shrubs-1920.jpg 1920w, /assets/photos/optimized/hero-mediterranean-shrubs-2880.jpg 2880w" sizes="100vw" alt="Mediterranean home with manicured shrub border and palms" width="2880" height="2160" loading="lazy" decoding="async">
+      </picture>
+      <span class="slide-caption" aria-hidden="true">
+        <span class="cap-num">04</span>
+        <span class="cap-label">Curb appeal</span>
+        <span class="cap-place">Lake Nona, FL</span>
+      </span>
+    </figure>
+
+    <!-- SLIDE 5 — Existing 5691 estate (kept, optimized) -->
+    <figure class="hero-slide" data-slide="4">
+      <picture>
+        <source type="image/avif" srcset="/assets/photos/optimized/img-5691-1200.avif 1200w, /assets/photos/optimized/img-5691-2400.avif 2400w" sizes="100vw">
+        <source type="image/webp" srcset="/assets/photos/optimized/img-5691-1200.webp 1200w, /assets/photos/optimized/img-5691-2400.webp 2400w" sizes="100vw">
+        <img src="/assets/photos/optimized/img-5691-1200.jpg" srcset="/assets/photos/optimized/img-5691-1200.jpg 1200w, /assets/photos/optimized/img-5691-2400.jpg 2400w" sizes="100vw" alt="Mediterranean estate with mature palm landscaping" width="2400" height="1800" loading="lazy" decoding="async">
+      </picture>
+      <span class="slide-caption" aria-hidden="true">
+        <span class="cap-num">05</span>
+        <span class="cap-label">Estate</span>
+        <span class="cap-place">Dr. Phillips, FL</span>
+      </span>
+    </figure>
+
+    <!-- SLIDE 6 — Open lawn with pine -->
+    <figure class="hero-slide" data-slide="5">
+      <picture>
+        <source type="image/avif" srcset="/assets/photos/optimized/hero-lawn-pine-1280.avif 1280w, /assets/photos/optimized/hero-lawn-pine-1920.avif 1920w, /assets/photos/optimized/hero-lawn-pine-2880.avif 2880w" sizes="100vw">
+        <source type="image/webp" srcset="/assets/photos/optimized/hero-lawn-pine-1280.webp 1280w, /assets/photos/optimized/hero-lawn-pine-1920.webp 1920w, /assets/photos/optimized/hero-lawn-pine-2880.webp 2880w" sizes="100vw">
+        <img src="/assets/photos/optimized/hero-lawn-pine-1920.jpg" srcset="/assets/photos/optimized/hero-lawn-pine-1280.jpg 1280w, /assets/photos/optimized/hero-lawn-pine-1920.jpg 1920w, /assets/photos/optimized/hero-lawn-pine-2880.jpg 2880w" sizes="100vw" alt="Healthy open lawn with mature Norfolk pine and palms" width="2880" height="2160" loading="lazy" decoding="async">
+      </picture>
+      <span class="slide-caption" aria-hidden="true">
+        <span class="cap-num">06</span>
+        <span class="cap-label">Lawn care</span>
+        <span class="cap-place">Sanford, FL</span>
+      </span>
+    </figure>
+
+    <!-- Cinematic gradient overlay (cream→dark scrim for type legibility) -->
+    <div class="hero-scrim" aria-hidden="true"></div>
   </div>
 
-  <!-- Photo collage layer (sits between atmosphere and content) -->
-  <div class="hero-collage" aria-hidden="true">
-    <figure class="hero-photo hero-photo-1" data-tilt>
-      <picture>
-        <source type="image/avif" srcset="/assets/photos/optimized/img-5691-1200.avif">
-        <source type="image/webp" srcset="/assets/photos/optimized/img-5691-1200.webp">
-        <img src="/assets/photos/optimized/img-5691-1200.jpg" alt="Mediterranean estate with mature palm landscaping in Winter Park, FL" width="900" height="1200" loading="eager" decoding="async" fetchpriority="high">
-      </picture>
-      <figcaption><span class="caption-label">— Estate</span> Winter Park</figcaption>
-    </figure>
+  <!-- ====================================================================
+       FOREGROUND CONTENT — type, CTAs, controls
+  ==================================================================== -->
+  <div class="hero-content">
 
-    <figure class="hero-photo hero-photo-2" data-tilt>
-      <picture>
-        <source type="image/avif" srcset="/assets/photos/optimized/img-5927-1200.avif">
-        <source type="image/webp" srcset="/assets/photos/optimized/img-5927-1200.webp">
-        <img src="/assets/photos/optimized/img-5927-1200.jpg" alt="Topiary and turf detail at a Lake Mary residence" width="800" height="800" loading="lazy" decoding="async">
-      </picture>
-      <figcaption><span class="caption-label">— Detail</span> Topiary, Lake Mary</figcaption>
-    </figure>
-
-    <figure class="hero-photo hero-photo-3" data-tilt>
-      <picture>
-        <source type="image/avif" srcset="/assets/photos/optimized/img-6640-1200.avif">
-        <source type="image/webp" srcset="/assets/photos/optimized/img-6640-1200.webp">
-        <img src="/assets/photos/optimized/img-6640-1200.jpg" alt="Tree install with circular mulch bed in Sanford, FL" width="800" height="1100" loading="lazy" decoding="async">
-      </picture>
-      <figcaption><span class="caption-label">— Install</span> Sanford</figcaption>
-    </figure>
-  </div>
-
-  <div class="hero-stage">
-
-    <!-- TOP META BAR: live booking · brand stamp · reviews -->
-    <div class="hero-meta">
-      <div class="hero-meta-item hero-meta-live">
-        <span class="pulse-dot" aria-hidden="true"></span>
-        <span class="hero-meta-label">Next opening</span>
-        <span class="hero-meta-value" data-next-available>Tuesday · 10am</span>
-      </div>
-
-      <div class="hero-meta-item hero-meta-brand">
-        <span class="hero-meta-label">Orlando · Florida</span>
-        <span class="hero-meta-value">Est. 2025</span>
-      </div>
-
-      <div class="hero-meta-item hero-meta-reviews">
-        <span class="hero-meta-label">5.0 · 28 reviews</span>
-        <span class="hero-meta-value">
-          <span class="stars" aria-hidden="true">★★★★★</span>
-          <span class="sr-only">5 out of 5 stars</span>
-          <span class="reviews-suffix">Google</span>
+    <!-- TOP STRIP: brand stamp · reviews -->
+    <header class="hero-topstrip">
+      <div class="hero-topstrip-left">
+        <span class="hero-stamp">
+          <span class="hero-stamp-mark" aria-hidden="true"></span>
+          <span class="hero-stamp-text">
+            <span class="hero-stamp-line">Prime Outdoor Experts</span>
+            <span class="hero-stamp-sub">Orlando · Est. 2025</span>
+          </span>
         </span>
       </div>
-    </div>
+      <div class="hero-topstrip-right">
+        <span class="hero-rating">
+          <span class="hero-rating-stars" aria-hidden="true">★★★★★</span>
+          <span class="sr-only">5 out of 5 stars</span>
+          <span class="hero-rating-meta"><strong>5.0</strong> · 28 Google reviews</span>
+        </span>
+      </div>
+    </header>
 
-    <!-- HEADLINE — center stage, word-stagger reveal -->
-    <h1 class="hero-h1" data-stagger>
-      <span class="word">Lawn</span>
-      <span class="word">&amp;</span>
-      <span class="word">landscape</span>
-      <span class="word br">care</span>
-      <span class="word">for</span>
-      <span class="word italic"><em>Orlando</em></span>
-      <span class="word italic"><em>properties.</em></span>
-    </h1>
+    <!-- HEADLINE BLOCK — bottom-left positioning, dramatic scale -->
+    <div class="hero-headline">
+      <p class="hero-eyebrow">
+        <span class="pulse-dot" aria-hidden="true"></span>
+        Booking <span data-next-available>Tuesday · 10am</span>
+      </p>
 
-    <!-- LOWER ZONE: lead + CTAs + trust strip -->
-    <div class="hero-lower">
+      <h1 class="hero-h1" data-stagger>
+        <span class="line"><span class="word">Lawn</span> <span class="word">&amp;</span> <span class="word">landscape</span></span>
+        <span class="line"><span class="word">care</span> <span class="word">for</span> <span class="word italic"><em>Orlando</em></span></span>
+        <span class="line"><span class="word italic"><em>properties.</em></span></span>
+      </h1>
+
       <p class="hero-sub">
-        Same crew every visit. Photo report after every service.<br>
-        No subcontractors, no rotating faces.
+        Same crew every visit. Photo report after every service. No subcontractors.
       </p>
 
       <div class="hero-actions">
         <a href="#quote-wizard" class="btn btn-primary btn-lg btn-arrow">Get an Instant Estimate</a>
-        <a href="tel:+14074434505" class="btn btn-outline-dark btn-lg btn-with-icon">
+        <a href="tel:+14074434505" class="btn btn-ghost-light btn-lg btn-with-icon">
           <svg class="icon-svg" aria-hidden="true" width="17" height="17"><use href="/assets/icons.svg#icon-phone"></use></svg>
           (407) 443-4505
         </a>
       </div>
 
-      <div class="hero-trust">
-        <span class="trust-chip"><svg class="icon-svg" aria-hidden="true" width="13" height="13"><use href="/assets/icons.svg#icon-shield"></use></svg>Licensed &amp; Insured</span>
-        <span class="trust-chip"><svg class="icon-svg" aria-hidden="true" width="13" height="13"><use href="/assets/icons.svg#icon-users"></use></svg>Same Crew Every Visit</span>
-        <span class="trust-chip"><svg class="icon-svg" aria-hidden="true" width="13" height="13"><use href="/assets/icons.svg#icon-camera"></use></svg>Photo-Documented</span>
-        <span class="trust-chip"><svg class="icon-svg" aria-hidden="true" width="13" height="13"><use href="/assets/icons.svg#icon-bolt"></use></svg>2-Hour Quote</span>
-      </div>
+      <ul class="hero-trust" role="list">
+        <li><svg class="icon-svg" aria-hidden="true" width="14" height="14"><use href="/assets/icons.svg#icon-shield"></use></svg> Licensed &amp; Insured</li>
+        <li><svg class="icon-svg" aria-hidden="true" width="14" height="14"><use href="/assets/icons.svg#icon-camera"></use></svg> Photo-Documented</li>
+        <li><svg class="icon-svg" aria-hidden="true" width="14" height="14"><use href="/assets/icons.svg#icon-bolt"></use></svg> 2-Hour Quote Response</li>
+      </ul>
     </div>
 
-    <!-- Scroll cue -->
-    <div class="hero-scroll-cue" aria-hidden="true">
-      <span class="scroll-text">Scroll</span>
-      <span class="scroll-line"></span>
+    <!-- CAROUSEL CONTROLS — bottom-right -->
+    <div class="hero-controls" data-hero-controls>
+      <button class="hero-ctrl-btn hero-ctrl-prev" type="button" aria-label="Previous slide">
+        <svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 6 9 12l6 6"/></svg>
+      </button>
+      <div class="hero-progress" aria-label="Slide progress">
+        <span class="hero-progress-track" data-current="1"></span>
+        <span class="hero-progress-of">/ 06</span>
+      </div>
+      <button class="hero-ctrl-btn hero-ctrl-next" type="button" aria-label="Next slide">
+        <svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m9 6 6 6-6 6"/></svg>
+      </button>
+      <button class="hero-ctrl-btn hero-ctrl-pause" type="button" aria-label="Pause slideshow" data-state="playing">
+        <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true" width="14" height="14" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+        <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true" width="14" height="14" fill="currentColor"><path d="M7 4l13 8-13 8z"/></svg>
+      </button>
     </div>
 
   </div>
 
   <!-- SEO: first 50 words for citations -->
   <p class="hero-seo-text" aria-hidden="true">
-    Prime Outdoor Experts provides professional commercial and residential landscaping in Orlando, FL — including HOA community maintenance, office park landscaping, retail center curb appeal, entrance feature design, irrigation management, and seasonal color rotations. Trusted by property managers and HOA boards across Orange and Seminole counties since 2025.
+    Prime Outdoor Experts is an owner-operated landscaping company in Orlando, FL, founded in 2025 by Manuel Saul. Serving HOAs, property managers, and homeowners across Orange and Seminole counties — Lake Mary, Winter Park, Lake Nona, Windermere, Sanford, Maitland, Altamonte Springs, Winter Garden, Apopka, Ocoee, Kissimmee, Celebration, and Dr. Phillips. Licensed and insured. 5.0 stars on Google. Call (407) 443-4505.
   </p>
 </section>
 

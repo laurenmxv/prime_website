@@ -334,4 +334,128 @@
     window.addEventListener('scroll', onScrollFade, { passive: true });
     onScrollFade();
   }
+
+  // ---------------------------------------------------------------------------
+  // CINEMATIC HERO — auto-advancing photo carousel
+  // - Crossfades every 6.2s (matches CSS progress bar transition)
+  // - Pauses when tab hidden (Page Visibility API) to save CPU/battery
+  // - Pauses on hover/focus, resumes on leave (desktop courtesy)
+  // - Manual prev/next/pause controls
+  // - Disables auto-advance on prefers-reduced-motion
+  // ---------------------------------------------------------------------------
+  const heroCinematic = document.querySelector('[data-hero-cinematic]');
+  if (heroCinematic) {
+    const slides = Array.from(heroCinematic.querySelectorAll('.hero-slide'));
+    const controls = heroCinematic.querySelector('[data-hero-controls]');
+    const prevBtn = controls?.querySelector('.hero-ctrl-prev');
+    const nextBtn = controls?.querySelector('.hero-ctrl-next');
+    const pauseBtn = controls?.querySelector('.hero-ctrl-pause');
+    const progressTrack = controls?.querySelector('.hero-progress-track');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const SLIDE_MS = 6200; // matches CSS .hero-progress-track transition duration
+
+    let current = 0;
+    let timer = null;
+    let isPaused = reduceMotion; // start paused if reduced-motion
+    let userInteracted = false;
+
+    function go(idx) {
+      const next = ((idx % slides.length) + slides.length) % slides.length;
+      if (next === current) return;
+      slides[current]?.classList.remove('is-active');
+      slides[next]?.classList.add('is-active');
+      current = next;
+      if (progressTrack) {
+        progressTrack.dataset.current = String(current + 1).padStart(2, '0');
+        // Restart progress animation
+        progressTrack.classList.remove('is-running');
+        // Force reflow so transition restarts
+        // eslint-disable-next-line no-unused-expressions
+        progressTrack.offsetWidth;
+        if (!isPaused) progressTrack.classList.add('is-running');
+      }
+    }
+
+    function next() { go(current + 1); }
+    function prev() { go(current - 1); }
+
+    function start() {
+      if (timer || isPaused) return;
+      progressTrack?.classList.remove('is-paused');
+      progressTrack?.classList.add('is-running');
+      timer = setInterval(next, SLIDE_MS);
+    }
+
+    function stop() {
+      if (timer) { clearInterval(timer); timer = null; }
+      progressTrack?.classList.remove('is-running');
+      progressTrack?.classList.add('is-paused');
+    }
+
+    function pause() {
+      isPaused = true;
+      stop();
+      if (pauseBtn) pauseBtn.dataset.state = 'paused';
+      pauseBtn?.setAttribute('aria-label', 'Play slideshow');
+    }
+
+    function play() {
+      isPaused = false;
+      start();
+      if (pauseBtn) pauseBtn.dataset.state = 'playing';
+      pauseBtn?.setAttribute('aria-label', 'Pause slideshow');
+    }
+
+    // Manual controls
+    nextBtn?.addEventListener('click', () => { userInteracted = true; next(); if (!isPaused) { stop(); start(); } });
+    prevBtn?.addEventListener('click', () => { userInteracted = true; prev(); if (!isPaused) { stop(); start(); } });
+    pauseBtn?.addEventListener('click', () => {
+      userInteracted = true;
+      isPaused ? play() : pause();
+    });
+
+    // Keyboard navigation when hero is focused
+    heroCinematic.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); userInteracted = true; next(); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); userInteracted = true; prev(); }
+      else if (e.key === ' ' || e.key === 'k') { e.preventDefault(); userInteracted = true; isPaused ? play() : pause(); }
+    });
+
+    // Pause when tab hidden, resume when visible
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stop();
+      else if (!isPaused) start();
+    });
+
+    // Pause on hover (desktop courtesy — not on touch)
+    if (window.matchMedia('(hover: hover)').matches) {
+      heroCinematic.addEventListener('mouseenter', () => { if (!isPaused) stop(); });
+      heroCinematic.addEventListener('mouseleave', () => { if (!isPaused) start(); });
+    }
+
+    // Touch swipe support (mobile)
+    let touchStartX = 0;
+    heroCinematic.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+    heroCinematic.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 50) {
+        userInteracted = true;
+        dx < 0 ? next() : prev();
+        if (!isPaused) { stop(); start(); }
+      }
+    }, { passive: true });
+
+    // Init
+    if (progressTrack) {
+      progressTrack.dataset.current = '01';
+    }
+    if (!reduceMotion) {
+      // Defer first auto-advance until after the entry word-stagger reveals (~1.6s)
+      setTimeout(start, 1800);
+    } else {
+      pause();
+    }
+  }
 })();
