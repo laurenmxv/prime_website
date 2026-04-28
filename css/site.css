@@ -5737,7 +5737,7 @@ section[aria-labelledby="path-choice-heading"] h2 {
   inset: 0;
   pointer-events: none;
   opacity: 0.025;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.7 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-image: url('../assets/noise.png');
   z-index: 0;
   mix-blend-mode: overlay;
 }
@@ -5865,7 +5865,7 @@ a:focus-visible, button:focus-visible, .btn:focus-visible {
   inset: 0;
   opacity: 0.06;
   mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.92' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.85'/%3E%3C/svg%3E");
+  background-image: url('../assets/noise.png');
 }
 
 /* Watermark logo mark — extreme bottom-right, very faint */
@@ -6464,7 +6464,7 @@ a:focus-visible, button:focus-visible, .btn:focus-visible {
   pointer-events: none;
   opacity: 0.06;
   mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.92' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.85'/%3E%3C/svg%3E");
+  background-image: url('../assets/noise.png');
 }
 
 /* ---- FOREGROUND: type + CTAs + controls ---- */
@@ -6844,4 +6844,171 @@ a:focus-visible, button:focus-visible, .btn:focus-visible {
   .hero-slide.is-active img { animation: none; transform: scale(1.0); }
   .hero-eyebrow .pulse-dot { animation: none; }
   .slide-caption { transition: none; }
+}
+
+/* =============================================================================
+   KEY FACTS PANEL — at-a-glance card under hero on service/location/commercial pages
+   ============================================================================= */
+.key-facts {
+  max-width: var(--max-width, 1240px);
+  margin: -32px auto 0;
+  padding: 28px clamp(20px, 4vw, 40px);
+  background: var(--fh-cream);
+  border: 1px solid rgba(15, 40, 24, 0.10);
+  border-radius: 12px;
+  box-shadow: 0 4px 24px -8px rgba(15, 40, 24, 0.10);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 18px 32px;
+  position: relative;
+  z-index: 5;
+}
+
+.kf-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-left: 2px solid var(--fh-orange);
+  padding-left: 14px;
+}
+
+.kf-label {
+  font-family: var(--fh-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--fh-text-faint);
+}
+
+.kf-value {
+  font-family: var(--fh-hero, 'Newsreader', serif);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.35;
+  color: var(--fh-evergreen);
+  letter-spacing: -0.01em;
+}
+
+.kf-value small {
+  display: block;
+  font-family: var(--fh-body);
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--fh-text-soft);
+  letter-spacing: 0;
+  text-transform: none;
+  margin-top: 2px;
+}
+
+.kf-value strong {
+  color: var(--fh-orange);
+  font-weight: 700;
+  font-family: var(--fh-body);
+}
+
+@media (max-width: 720px) {
+  .key-facts {
+    margin: -24px 16px 0;
+    padding: 20px;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .kf-value { font-size: 15.5px; }
+}
+
+
+/* SERVICE PROOF GRID — 3-up photo proof on service pages */
+.service-proof .proof-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  max-width: var(--max-width, 1240px);
+  margin: 0 auto;
+}
+
+.proof-photo {
+  margin: 0;
+  position: relative;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  border-radius: 6px;
+  box-shadow: 0 8px 28px -10px rgba(15, 40, 24, 0.18);
+  background: var(--fh-evergreen);
+  transition: transform 320ms cubic-bezier(0.2, 0.8, 0.2, 1),
+              box-shadow 320ms ease;
+}
+
+.proof-photo:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px -10px rgba(15, 40, 24, 0.28);
+}
+
+.proof-photo picture, .proof-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.proof-photo img {
+  object-fit: cover;
+  transition: transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.proof-photo:hover img {
+  transform: scale(1.04);
+}
+
+@media (max-width: 600px) {
+  .service-proof .proof-grid { grid-template-columns: 1fr; gap: 16px; }
+}
+
+/* BLOG → LOCATIONS internal-link footer block */
+.blog-locations {
+  margin: 64px 0 24px;
+  padding: 32px;
+  background: var(--fh-cream-soft, #F2EBE0);
+  border-radius: 10px;
+  border: 1px solid rgba(15, 40, 24, 0.08);
+}
+.blog-locations h3 {
+  font-family: var(--fh-hero, 'Newsreader', serif);
+  font-weight: 400;
+  font-size: 22px;
+  color: var(--fh-evergreen);
+  margin: 0 0 8px;
+}
+.blog-locations p {
+  font-size: 14.5px;
+  color: var(--fh-text-soft);
+  margin: 0 0 16px;
+}
+.blog-locations-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+}
+.blog-locations-chips a {
+  display: inline-block;
+  padding: 6px 14px;
+  background: var(--fh-cream);
+  border: 1px solid rgba(15, 40, 24, 0.12);
+  border-radius: 100px;
+  font-family: var(--fh-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--fh-evergreen);
+  text-decoration: none;
+  transition: all 200ms ease;
+}
+.blog-locations-chips a:hover {
+  background: var(--fh-orange);
+  color: var(--fh-cream);
+  border-color: var(--fh-orange);
+}
+.blog-locations-chips a.see-all {
+  background: transparent;
+  border-style: dashed;
+  color: var(--fh-orange-deep);
 }
