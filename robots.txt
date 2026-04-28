@@ -1,5 +1,5 @@
 # Prime Outdoor Experts — robots.txt
-# https://primeoutdoorexperts.com/robots.txt
+# https://www.primeoutdoorexperts.com/robots.txt
 
 User-agent: *
 Allow: /
@@ -10,7 +10,7 @@ Disallow: /prime-outdoor-experts-website-rebuild-plan.html
 Disallow: /seo-geo-optimizer.md
 Disallow: /outputs/
 
-Sitemap: https://primeoutdoorexperts.com/sitemap.xml
+Sitemap: https://www.primeoutdoorexperts.com/sitemap.xml
 
 # Allow AI search bots for citation potential (Google AI Overviews, ChatGPT, Perplexity)
 User-agent: GPTBot

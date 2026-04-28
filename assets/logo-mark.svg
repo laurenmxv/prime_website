@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true">
+  <!-- Pine canopy: 4-tier stepped silhouette -->
+  <path d="M32 4
+           L23 16
+           L27 16
+           L20 26
+           L25 26
+           L17 38
+           L23 38
+           L13 50
+           L51 50
+           L41 38
+           L47 38
+           L39 26
+           L44 26
+           L37 16
+           L41 16
+           Z"/>
+  <!-- Trunk -->
+  <rect x="29.5" y="48" width="5" height="6" rx="0.5"/>
+  <!-- Landscape: two arching hills/horizon swoops -->
+  <path d="M6 58
+           C 14 52, 22 52, 32 56
+           C 42 52, 50 52, 58 58
+           L 58 60
+           C 50 54, 42 54, 32 58
+           C 22 54, 14 54, 6 60
+           Z"/>
+</svg>

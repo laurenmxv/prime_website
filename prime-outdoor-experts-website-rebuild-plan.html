@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
 <title>Prime Outdoor Experts — Website Rebuild Plan</title>
 <style>
   :root {
@@ -757,7 +758,7 @@
     <h3>URL Canonical Rules</h3>
     <pre>
 # Every page: self-referencing canonical tag
-&lt;link rel="canonical" href="https://primeoutdoorexperts.com/[current-path]/" /&gt;
+&lt;link rel="canonical" href="https://www.primeoutdoorexperts.com/[current-path]/" /&gt;
 
 # Enforce HTTPS always — 301 redirect all HTTP
 # Enforce trailing slash consistently — pick one, redirect the other
@@ -775,7 +776,7 @@ Disallow: /wp-login.php
 Disallow: /cart/
 Disallow: /checkout/
 Disallow: /?s=
-Sitemap: https://primeoutdoorexperts.com/sitemap.xml
+Sitemap: https://www.primeoutdoorexperts.com/sitemap.xml
 
 # Allow all AI search bots for citation potential
 User-agent: GPTBot
@@ -865,10 +866,10 @@ Disallow: /</pre>
   "@graph": [
     {
       "@type": "LocalBusiness",
-      "@id": "https://primeoutdoorexperts.com/#business",
+      "@id": "https://www.primeoutdoorexperts.com/#business",
       "name": "Prime Outdoor Experts LLC",
       "description": "Professional commercial and residential landscaping in Orlando, FL. Serving HOAs, office parks, retail centers, and homeowners across Central Florida.",
-      "url": "https://primeoutdoorexperts.com",
+      "url": "https://www.primeoutdoorexperts.com",
       "telephone": "+14074434505",
       "address": {
         "@type": "PostalAddress",
@@ -902,10 +903,10 @@ Disallow: /</pre>
     },
     {
       "@type": "WebSite",
-      "@id": "https://primeoutdoorexperts.com/#website",
-      "url": "https://primeoutdoorexperts.com",
+      "@id": "https://www.primeoutdoorexperts.com/#website",
+      "url": "https://www.primeoutdoorexperts.com",
       "name": "Prime Outdoor Experts",
-      "publisher": { "@id": "https://primeoutdoorexperts.com/#business" }
+      "publisher": { "@id": "https://www.primeoutdoorexperts.com/#business" }
     }
   ]
 }</pre>
