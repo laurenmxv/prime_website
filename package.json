@@ -5,7 +5,9 @@
   "version": "1.0.0",
   "description": "Prime Outdoor Experts — Orlando landscaping company website",
   "scripts": {
-    "optimize-photos": "node scripts/optimize-photos.mjs"
+    "optimize-photos": "node scripts/optimize-photos.mjs",
+    "build-css": "bash scripts/build-css.sh",
+    "build": "bash scripts/build-css.sh"
   },
   "devDependencies": {
     "sharp": "^0.33.5",

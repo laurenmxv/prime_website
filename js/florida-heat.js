@@ -193,10 +193,16 @@
   // Updates --tilt-x and --tilt-y on each card based on cursor position.
   // Only active on devices with hover; respects prefers-reduced-motion.
   // ---------------------------------------------------------------------------
+  // Strict pointer guard: require fine pointer (real mouse), not just hover-capable.
+  // Chrome on Android with mouse plug-in still matches (hover: hover); (any-pointer: fine)
+  // is more honest about whether we have precision input. Skip on touch entirely
+  // to keep INP under 200ms on mobile devices.
   if (
     'matchMedia' in window &&
     !window.matchMedia('(prefers-reduced-motion: reduce)').matches &&
-    window.matchMedia('(hover: hover)').matches
+    window.matchMedia('(hover: hover)').matches &&
+    window.matchMedia('(any-pointer: fine)').matches &&
+    !window.matchMedia('(any-pointer: coarse)').matches
   ) {
     const tiltSelectors = [
       '.section-dark .card',
@@ -210,36 +216,55 @@
     const MAX_LIFT = -4;      // pixels
     const SETTLE_MS = 260;
 
+    // SHARED RAF GATE — one rAF for ALL cards combined (was: rAF per card = ~20 listeners
+    // × rAF each per move = jank). Coalesce to one frame, write all CSS vars in batch.
+    let pendingMove = null;
+    let raf = null;
+
+    function flush() {
+      raf = null;
+      if (!pendingMove) return;
+      const { card, e } = pendingMove;
+      pendingMove = null;
+      // willChange hint (set once per card, removed on leave)
+      if (!card._tiltActive) {
+        card.style.willChange = 'transform';
+        card._tiltActive = true;
+      }
+      const rect = card.getBoundingClientRect();
+      const px = (e.clientX - rect.left) / rect.width;
+      const py = (e.clientY - rect.top) / rect.height;
+      const tiltX = (px - 0.5) * 2 * MAX_TILT;
+      const tiltY = (0.5 - py) * 2 * MAX_TILT;
+      card.style.setProperty('--tilt-x', tiltX.toFixed(2));
+      card.style.setProperty('--tilt-y', tiltY.toFixed(2));
+      card.style.setProperty('--tilt-lift', `${MAX_LIFT}px`);
+    }
+
     tiltCards.forEach((card) => {
       card.classList.add('tilt-card');
-      let raf = null;
 
       function onMove(e) {
-        if (raf) cancelAnimationFrame(raf);
-        raf = requestAnimationFrame(() => {
-          const rect = card.getBoundingClientRect();
-          const px = (e.clientX - rect.left) / rect.width;   // 0..1
-          const py = (e.clientY - rect.top) / rect.height;   // 0..1
-          const tiltX = (px - 0.5) * 2 * MAX_TILT;           // -MAX..+MAX
-          const tiltY = (0.5 - py) * 2 * MAX_TILT;
-          card.style.setProperty('--tilt-x', tiltX.toFixed(2));
-          card.style.setProperty('--tilt-y', tiltY.toFixed(2));
-          card.style.setProperty('--tilt-lift', `${MAX_LIFT}px`);
-        });
+        // store latest event; rAF flushes once per frame for all cards
+        pendingMove = { card, e };
+        if (!raf) raf = requestAnimationFrame(flush);
       }
 
       function onLeave() {
-        if (raf) cancelAnimationFrame(raf);
         // Smooth settle back to 0
         card.style.transition = `transform ${SETTLE_MS}ms cubic-bezier(0.2, 0, 0.2, 1)`;
         card.style.setProperty('--tilt-x', 0);
         card.style.setProperty('--tilt-y', 0);
         card.style.setProperty('--tilt-lift', '0px');
-        setTimeout(() => { card.style.transition = ''; }, SETTLE_MS);
+        setTimeout(() => {
+          card.style.transition = '';
+          card.style.willChange = '';
+          card._tiltActive = false;
+        }, SETTLE_MS);
       }
 
-      card.addEventListener('mousemove', onMove);
-      card.addEventListener('mouseleave', onLeave);
+      card.addEventListener('mousemove', onMove, { passive: true });
+      card.addEventListener('mouseleave', onLeave, { passive: true });
     });
   }
 

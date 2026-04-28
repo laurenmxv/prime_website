@@ -17,20 +17,27 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400;1,6..72,500&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500;1,9..144,600&family=Inter+Tight:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/styles.css">
-  <link rel="stylesheet" href="../css/botanical-premium.css">
-  <link rel="stylesheet" href="../css/florida-heat.css">
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Inter+Tight:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/site.css">
 
   <!-- Schema — AggregateRating + Review array -->
   <script type="application/ld+json">
+  
   {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "LocalBusiness",
+        "@type": "CollectionPage",
+        "@id": "https://www.primeoutdoorexperts.com/reviews/#reviewspage",
+        "name": "Prime Outdoor Experts Reviews",
+        "url": "https://www.primeoutdoorexperts.com/reviews/",
+        "description": "Customer reviews of Prime Outdoor Experts \u2014 Orlando, FL landscaping company.",
+        "mainEntity": {
+          "@id": "https://www.primeoutdoorexperts.com/#business"
+        }
+      },
+      {
         "@id": "https://www.primeoutdoorexperts.com/#business",
-        "name": "Prime Outdoor Experts LLC",
         "aggregateRating": {
           "@type": "AggregateRating",
           "ratingValue": "5.0",
@@ -41,32 +48,72 @@
         "review": [
           {
             "@type": "Review",
-            "author": { "@type": "Person", "name": "Claudia Morales" },
-            "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+            "author": {
+              "@type": "Person",
+              "name": "Claudia Morales"
+            },
+            "reviewRating": {
+              "@type": "Rating",
+              "ratingValue": "5",
+              "bestRating": "5"
+            },
             "reviewBody": "I recently hired this landscaping company to help with a few updates around my home, and I'm really impressed with their work. They cleaned up the area beautifully, trimmed back some overgrown bushes, and when they were done, the place looked fantastic. I'm happy to have them on a bi-weekly maintenance schedule. I also appreciate how responsive and communicative they were throughout the process.",
-            "publisher": { "@type": "Organization", "name": "Google" }
+            "publisher": {
+              "@type": "Organization",
+              "name": "Google"
+            }
           },
           {
             "@type": "Review",
-            "author": { "@type": "Person", "name": "Andres Rodriguez" },
-            "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+            "author": {
+              "@type": "Person",
+              "name": "Andres Rodriguez"
+            },
+            "reviewRating": {
+              "@type": "Rating",
+              "ratingValue": "5",
+              "bestRating": "5"
+            },
             "reviewBody": "I had already hired two landscaping companies for my house and, besides being very expensive, I was never satisfied with the service they provided. With them, not only did I receive excellent customer service, but also fair prices and top-quality work. Without a doubt, highly recommended.",
-            "publisher": { "@type": "Organization", "name": "Google" }
+            "publisher": {
+              "@type": "Organization",
+              "name": "Google"
+            }
           },
           {
             "@type": "Review",
-            "author": { "@type": "Person", "name": "Marla McVicar" },
-            "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-            "reviewBody": "Prime Outdoor Experts are the best out there! My lawn has never looked so good! The owner takes pride in his work and his service is impeccable. Mowing, weed removal, palm tree trimming… they do it all!",
-            "publisher": { "@type": "Organization", "name": "Google" }
+            "author": {
+              "@type": "Person",
+              "name": "Marla McVicar"
+            },
+            "reviewRating": {
+              "@type": "Rating",
+              "ratingValue": "5",
+              "bestRating": "5"
+            },
+            "reviewBody": "Prime Outdoor Experts are the best out there! My lawn has never looked so good! The owner takes pride in his work and his service is impeccable. Mowing, weed removal, palm tree trimming\u2026 they do it all!",
+            "publisher": {
+              "@type": "Organization",
+              "name": "Google"
+            }
           }
         ]
       },
       {
         "@type": "BreadcrumbList",
         "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.primeoutdoorexperts.com/" },
-          { "@type": "ListItem", "position": 2, "name": "Reviews", "item": "https://www.primeoutdoorexperts.com/reviews/" }
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.primeoutdoorexperts.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Reviews",
+            "item": "https://www.primeoutdoorexperts.com/reviews/"
+          }
         ]
       }
     ]
