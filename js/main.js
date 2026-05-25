@@ -313,6 +313,26 @@
           try { data = await response.json(); } catch (_) { /* ignore */ }
 
           if (response.ok && data.ok !== false) {
+            // Fire Google Ads conversion event on successful submit.
+            // Replace 'XXX-XXX' below with the actual conversion label from
+            // Google Ads > Tools > Conversions > [your conversion action] > Tag setup.
+            // Until then, this fires a generic 'form_submit' event that you can
+            // still see in Google Ads / GA4 reporting.
+            if (typeof window.gtag === 'function') {
+              window.gtag('event', 'conversion', {
+                'send_to': 'AW-17449266351/REPLACE_WITH_CONVERSION_LABEL',
+                'event_category': 'lead',
+                'event_label': 'contact_form',
+                'value': 50.00,
+                'currency': 'USD'
+              });
+              // Generic event for GA4 reporting too
+              window.gtag('event', 'generate_lead', {
+                'event_category': 'engagement',
+                'event_label': 'contact_form'
+              });
+            }
+
             quoteForm.innerHTML = `
               <div style="text-align:center; padding: 48px 24px;">
                 <div style="font-size:48px; margin-bottom:16px;">✅</div>
