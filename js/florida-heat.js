@@ -128,6 +128,77 @@
   }
 
   // ---------------------------------------------------------------------------
+  // FLOATING ACTION WIDGET (.fh-faw) — appears after scroll past hero,
+  // dismissible (remembers via sessionStorage), tracks gtag conversions
+  // on call + quote actions
+  // ---------------------------------------------------------------------------
+  const faw = document.querySelector('[data-fh-faw]');
+  if (faw) {
+    const dismissed = sessionStorage.getItem('fh-faw-dismissed') === '1';
+    if (dismissed) {
+      faw.classList.add('is-dismissed');
+    } else {
+      let visible = false;
+      const onScrollFaw = () => {
+        const trigger = window.innerHeight * 0.55;
+        const shouldShow = window.scrollY > trigger;
+        if (shouldShow && !visible) {
+          faw.classList.add('is-visible');
+          visible = true;
+        } else if (!shouldShow && visible) {
+          faw.classList.remove('is-visible');
+          visible = false;
+        }
+      };
+      window.addEventListener('scroll', onScrollFaw, { passive: true });
+      onScrollFaw();
+
+      // Close button
+      const closeBtn = faw.querySelector('[data-fh-faw-close]');
+      closeBtn?.addEventListener('click', () => {
+        faw.classList.add('is-dismissed');
+        sessionStorage.setItem('fh-faw-dismissed', '1');
+      });
+
+      // Track widget interactions in Google Ads
+      faw.querySelectorAll('[data-fh-faw-action]').forEach((el) => {
+        el.addEventListener('click', () => {
+          const action = el.dataset.fhFawAction;
+          if (typeof window.gtag === 'function') {
+            window.gtag('event', 'floating_widget_' + action, {
+              event_category: 'engagement',
+              event_label: action === 'call' ? 'phone' : 'contact_form',
+            });
+            if (action === 'call') {
+              window.gtag('event', 'conversion', {
+                'send_to': 'AW-17449266351/REPLACE_WITH_CALL_LABEL',
+                'event_category': 'call',
+              });
+            }
+          }
+        });
+      });
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // RECENT QUOTES TICKER (.recent-quotes-ticker) — rotates social-proof
+  // messages every 4 seconds on the contact page
+  // ---------------------------------------------------------------------------
+  const ticker = document.querySelector('[data-rqt] .rqt-text');
+  if (ticker) {
+    const items = ticker.querySelectorAll('span');
+    if (items.length > 1) {
+      let idx = 0;
+      setInterval(() => {
+        items[idx].classList.remove('is-active');
+        idx = (idx + 1) % items.length;
+        items[idx].classList.add('is-active');
+      }, 4200);
+    }
+  }
+
+  // ---------------------------------------------------------------------------
   // Magnetic buttons — cursor pull effect on hero CTAs
   // ---------------------------------------------------------------------------
   const magneticBtns = document.querySelectorAll('.btn-magnetic, .hero .btn-primary');
