@@ -72,27 +72,29 @@ export default async function handler(req, res) {
     });
   }
 
-  const {
-    name = '',
-    email = '',
-    phone = '',
-    property_type = '',
-    address = '',
-    message = '',
-    _gotcha = '',
-  } = body;
+  // Accept either {name} (legacy) OR {first_name, last_name} (current form)
+  // Accept either {address} (legacy) OR {city} (current form)
+  const first_name = (body.first_name || '').trim();
+  const last_name  = (body.last_name  || '').trim();
+  const name = (body.name || `${first_name} ${last_name}`).trim();
+  const email = (body.email || '').trim();
+  const phone = (body.phone || '').trim();
+  const property_type = (body.property_type || '').trim();
+  const address = (body.address || body.city || '').trim();
+  const message = (body.message || '').trim();
+  const _gotcha = body._gotcha || '';
 
   // Honeypot — silently accept and drop bot submissions
   if (_gotcha && _gotcha.trim() !== '') {
     return res.status(200).json({ ok: true });
   }
 
-  // Validation
+  // Validation (values are already trimmed at extraction time)
   const errors = [];
-  if (!name.trim()) errors.push('Name is required.');
+  if (!name) errors.push('Name is required.');
   if (!/^\S+@\S+\.\S+$/.test(email)) errors.push('Valid email is required.');
-  if (!phone.trim()) errors.push('Phone is required.');
-  if (!message.trim()) errors.push('Tell us about your property.');
+  if (!phone) errors.push('Phone is required.');
+  if (!message) errors.push('Tell us about your property.');
   if (errors.length) {
     return res.status(400).json({ ok: false, error: errors.join(' ') });
   }
@@ -115,7 +117,7 @@ export default async function handler(req, res) {
       <tr><td style="padding:6px 12px 6px 0;color:#6B8B7A;">Email</td><td><a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></td></tr>
       <tr><td style="padding:6px 12px 6px 0;color:#6B8B7A;">Phone</td><td><a href="tel:${escapeHtml(phone)}">${escapeHtml(phone)}</a></td></tr>
       <tr><td style="padding:6px 12px 6px 0;color:#6B8B7A;">Property type</td><td>${escapeHtml(property_type) || '—'}</td></tr>
-      <tr><td style="padding:6px 12px 6px 0;color:#6B8B7A;">Address</td><td>${escapeHtml(address) || '—'}</td></tr>
+      <tr><td style="padding:6px 12px 6px 0;color:#6B8B7A;">City / Area</td><td>${escapeHtml(address) || '—'}</td></tr>
     </table>
     <h3 style="font-family:Inter,sans-serif;color:#1D3A2B;margin-top:24px;">Message</h3>
     <p style="font-family:Inter,sans-serif;font-size:14px;line-height:1.6;white-space:pre-wrap;">${escapeHtml(message)}</p>
