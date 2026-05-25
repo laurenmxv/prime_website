@@ -52,8 +52,26 @@ export default async function handler(req, res) {
     return res.status(405).json({ ok: false, error: 'Method not allowed' });
   }
 
-  // Vercel parses application/x-www-form-urlencoded and application/json into req.body
-  const body = req.body || {};
+  // Vercel parses application/x-www-form-urlencoded and application/json into req.body.
+  // It does NOT auto-parse multipart/form-data — handle that case gracefully so we
+  // can return a clear error if the frontend is misconfigured.
+  let body = req.body || {};
+  const contentType = (req.headers['content-type'] || '').toLowerCase();
+
+  // If body is a string (some Vercel runtimes deliver raw string for unknown CT), try to parse
+  if (typeof body === 'string') {
+    try { body = JSON.parse(body); } catch (_) { body = {}; }
+  }
+
+  // If body is empty but Content-Type is multipart, give a helpful diagnostic
+  if (Object.keys(body).length === 0 && contentType.startsWith('multipart/form-data')) {
+    console.error('Received multipart/form-data but no parsed body. Frontend should send JSON or url-encoded.');
+    return res.status(415).json({
+      ok: false,
+      error: 'Server expects JSON. Please refresh the page and try again.',
+    });
+  }
+
   const {
     name = '',
     email = '',

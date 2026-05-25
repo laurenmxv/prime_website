@@ -289,13 +289,30 @@
         submitBtn.disabled = true;
         submitBtn.innerHTML = 'Sending…';
 
+        // Convert FormData to a plain object → JSON payload.
+        // Vercel functions auto-parse application/json into req.body. They do NOT
+        // auto-parse multipart/form-data (which is what `new FormData(form)` sends),
+        // so the function would see all fields as empty and return a 400.
+        const payload = {};
+        new FormData(quoteForm).forEach((value, key) => {
+          payload[key] = value;
+        });
+
         fetch(quoteForm.action, {
           method: 'POST',
-          body: new FormData(quoteForm),
-          headers: { 'Accept': 'application/json' }
+          body: JSON.stringify(payload),
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          }
         })
-        .then((response) => {
-          if (response.ok) {
+        .then(async (response) => {
+          // Read the server's actual response body so we can show the real error
+          // instead of a generic "something went wrong" message.
+          let data = {};
+          try { data = await response.json(); } catch (_) { /* ignore */ }
+
+          if (response.ok && data.ok !== false) {
             quoteForm.innerHTML = `
               <div style="text-align:center; padding: 48px 24px;">
                 <div style="font-size:48px; margin-bottom:16px;">✅</div>
@@ -304,14 +321,19 @@
                 For urgent inquiries, call <a href="tel:+14074434505" style="color:#A0C200; font-weight:700;">(407) 443-4505</a>.</p>
               </div>
             `;
-          } else {
-            throw new Error('Form submission failed');
+            return;
           }
+
+          // Non-2xx OR { ok: false } — surface the real server message
+          throw new Error(data.error || `Form submission failed (${response.status})`);
         })
-        .catch(() => {
+        .catch((err) => {
           submitBtn.disabled = false;
           submitBtn.innerHTML = originalText;
-          alert('Something went wrong. Please call us at (407) 443-4505 or try again.');
+          const msg = (err && err.message) ? err.message : 'Something went wrong.';
+          alert(`${msg}\n\nPlease call us at (407) 443-4505 or try again.`);
+          // Also surface in console for debugging
+          if (window.console && console.error) console.error('Quote form error:', err);
         });
       }
     });
