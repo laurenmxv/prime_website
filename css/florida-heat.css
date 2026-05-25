@@ -3439,3 +3439,69 @@ a:focus-visible, button:focus-visible, .btn:focus-visible {
   border-style: dashed;
   color: var(--fh-orange-deep);
 }
+
+/* EXPLORE BLOCK — 3-column deep-link block on homepage for crawl signals */
+.explore-block {
+  padding-top: clamp(64px, 8vh, 96px);
+  padding-bottom: clamp(64px, 8vh, 96px);
+  background: var(--fh-cream-soft, #F2EBE0);
+}
+
+.explore-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 40px 56px;
+  max-width: var(--max-width, 1240px);
+  margin: 0 auto;
+}
+
+.explore-col h3 {
+  font-family: var(--fh-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--fh-orange-deep);
+  margin: 0 0 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(15, 40, 24, 0.12);
+}
+
+.explore-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.explore-col a {
+  font-family: var(--fh-hero, 'Newsreader', serif);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--fh-evergreen);
+  text-decoration: none;
+  line-height: 1.4;
+  transition: color 200ms ease, transform 200ms ease;
+  display: inline-block;
+}
+
+.explore-col a:hover {
+  color: var(--fh-orange-deep);
+  transform: translateX(4px);
+}
+
+.explore-col a.explore-all {
+  margin-top: 6px;
+  font-family: var(--fh-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fh-orange);
+}
+
+@media (max-width: 640px) {
+  .explore-grid { gap: 32px; }
+}

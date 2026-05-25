@@ -58,6 +58,26 @@
     { "source": "/index.html", "destination": "/", "permanent": true },
     { "source": "/home", "destination": "/", "permanent": true },
     { "source": "/schema-audit-report.html", "destination": "/", "permanent": true },
-    { "source": "/prime-outdoor-experts-website-rebuild-plan.html", "destination": "/", "permanent": true }
+    { "source": "/prime-outdoor-experts-website-rebuild-plan.html", "destination": "/", "permanent": true },
+
+    { "source": "/design-installation", "destination": "/services/landscape-design-installation/", "permanent": true },
+    { "source": "/design-installation/", "destination": "/services/landscape-design-installation/", "permanent": true },
+    { "source": "/landscape-design", "destination": "/services/landscape-design-installation/", "permanent": true },
+    { "source": "/landscape-design/", "destination": "/services/landscape-design-installation/", "permanent": true },
+
+    { "source": "/testimonials", "destination": "/reviews/", "permanent": true },
+    { "source": "/testimonials/", "destination": "/reviews/", "permanent": true },
+    { "source": "/reviews.html", "destination": "/reviews/", "permanent": true },
+
+    { "source": "/lawn-care", "destination": "/services/lawn-care/", "permanent": true },
+    { "source": "/lawn-care/", "destination": "/services/lawn-care/", "permanent": true },
+    { "source": "/irrigation", "destination": "/services/irrigation-systems/", "permanent": true },
+    { "source": "/irrigation/", "destination": "/services/irrigation-systems/", "permanent": true },
+    { "source": "/tree-care", "destination": "/services/tree-shrub-care/", "permanent": true },
+    { "source": "/tree-care/", "destination": "/services/tree-shrub-care/", "permanent": true },
+    { "source": "/hoa", "destination": "/services/hoa-maintenance-programs/", "permanent": true },
+    { "source": "/hoa/", "destination": "/services/hoa-maintenance-programs/", "permanent": true },
+    { "source": "/commercial", "destination": "/commercial-landscaping/", "permanent": true },
+    { "source": "/commercial/", "destination": "/commercial-landscaping/", "permanent": true }
   ]
 }
